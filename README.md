@@ -9,7 +9,8 @@ A working prototype of a skills-based hiring engine, built for IDFC FIRST Bank F
 - **Candidate view:** a phone-style app beside a live engine trace. A candidate describes her work in Hindi, Hinglish or English. Matching roles re-rank as she types. She applies with a Hindi CV, gets one clarifying question instead of a rejection, and is shortlisted after answering.
 - **Recruiter view:** the same application with the evidence line behind each skill score, a comparison with a keyword filter, a four-bucket triage board, and a talent pool of people who applied for other roles.
 
-- **Guided demo:** the Play demo button runs Asha's whole story on its own, with captions. Useful for screen recording.
+- **Guided demo:** Play demo runs Asha's whole story on its own, with captions.
+- **Presenter mode:** Present runs the same story one step at a time. Press the right arrow, Space, Enter or a clicker to move on; Esc stops.
 
 ## How it works
 

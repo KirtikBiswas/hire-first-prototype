@@ -61,6 +61,13 @@ button:focus-visible,textarea:focus-visible,select:focus-visible,input:focus-vis
 .demo-btn{display:inline-flex;align-items:center;gap:8px;border:0;cursor:pointer;background:linear-gradient(135deg,var(--brand),var(--brand-2));color:var(--on-brand);font-weight:700;font-size:13.5px;padding:9px 16px;border-radius:999px;box-shadow:0 6px 18px color-mix(in srgb,var(--brand) 35%,transparent)}
 .demo-btn svg{width:14px;height:14px}
 .demo-btn[data-on="true"]{background:var(--fg);color:var(--bg);box-shadow:none}
+.demo-btn.present{background:var(--surface);color:var(--brand);box-shadow:inset 0 0 0 1.5px var(--brand)}
+.demo-btn.present[data-on="true"]{background:var(--fg);color:var(--bg);box-shadow:none}
+.caption.mini{left:auto;right:max(20px,env(safe-area-inset-right,0px));bottom:auto;top:calc(76px + env(safe-area-inset-top,0px));width:auto;padding:8px 12px}
+.caption.mini p,.caption.mini .bar2{display:none}
+#view-candidate,#view-recruiter,#detail{scroll-margin-top:76px}
+.caption .key{font-size:11.5px;font-weight:700;opacity:.85;white-space:nowrap;display:flex;align-items:center;gap:6px}
+.caption kbd{font:700 11px var(--body);background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.35);border-radius:5px;padding:1px 6px}
 
 .wrap{max-width:1220px;margin:0 auto;padding-block:22px 56px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:22px;overflow-x:clip}
 
@@ -304,9 +311,9 @@ button:focus-visible,textarea:focus-visible,select:focus-visible,input:focus-vis
 .poolc small{font-size:11.5px;color:var(--muted)}
 
 /* ---------- toast + demo caption ---------- */
-.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translate(-50%,30px);opacity:0;background:var(--fg);color:var(--bg);padding:10px 16px;border-radius:12px;font-size:13.5px;font-weight:600;transition:all .3s;z-index:40;max-width:calc(100% - 32px)}
+.toast{position:fixed;left:50%;bottom:calc(96px + env(safe-area-inset-bottom,0px));transform:translate(-50%,30px);opacity:0;background:var(--fg);color:var(--bg);padding:10px 16px;border-radius:12px;font-size:13.5px;font-weight:600;transition:all .3s;z-index:40;max-width:calc(100% - 32px)}
 .toast.on{transform:translate(-50%,0);opacity:1}
-.caption{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:41;background:linear-gradient(135deg,#4c0d12,#8e1e27);color:#fff;border-radius:16px;padding:12px 16px;box-shadow:var(--shadow-lg);display:flex;align-items:center;gap:12px;max-width:calc(100% - 32px);width:560px}
+.caption{position:fixed;left:max(20px,env(safe-area-inset-left,0px));bottom:calc(20px + env(safe-area-inset-bottom,0px));z-index:41;background:linear-gradient(135deg,#4c0d12,#8e1e27);color:#fff;border-radius:16px;padding:12px 16px;box-shadow:var(--shadow-lg);display:flex;align-items:center;gap:12px;max-width:calc(100% - 32px);width:560px}
 .caption .n{font:700 12px var(--display);background:#d9a441;color:#3b2507;border-radius:8px;padding:4px 8px;white-space:nowrap}
 .caption p{font-size:14px;font-weight:600;flex:1}
 .caption .bar2{position:absolute;left:12px;right:12px;bottom:6px;height:3px;border-radius:3px;background:rgba(255,255,255,.18);overflow:hidden}
@@ -325,6 +332,7 @@ button:focus-visible,textarea:focus-visible,select:focus-visible,input:focus-vis
       <button id="tab-candidate" role="tab" aria-selected="true" data-view="candidate">Candidate</button>
       <button id="tab-recruiter" role="tab" aria-selected="false" data-view="recruiter">Recruiter</button>
     </div>
+    <button class="demo-btn present" id="presentBtn" data-on="false" title="Each step waits for you. Press the right arrow, Space or your clicker to move on."><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M2 3h12v8H9.5l2 2.5h-1.9L8 11.6 6.4 13.5H4.5l2-2.5H2z"/></svg><span>Present</span></button>
     <button class="demo-btn" id="demoBtn" data-on="false"><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M4 2.5v11l9-5.5z"/></svg><span>Play demo</span></button>
   </div>
 </header>
@@ -417,7 +425,7 @@ button:focus-visible,textarea:focus-visible,select:focus-visible,input:focus-vis
 </main>
 
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
-<div class="caption" id="caption" hidden><span class="n" id="capN">1 / 7</span><p id="capT"></p><div class="bar2"><i id="capBar" style="width:0%"></i></div></div>
+<div class="caption" id="caption" hidden><span class="n" id="capN">1 / 7</span><p id="capT"></p><span class="key" id="capKey" hidden><kbd>→</kbd> next</span><div class="bar2"><i id="capBar" style="width:0%"></i></div></div>
 
 <script>
 // ---------- skills dictionary ----------
@@ -680,38 +688,51 @@ $("pbody").addEventListener("click",e=>{
 });
 
 // ---------- guided demo ----------
-const D={on:false,tok:0};
+const D={on:false,tok:0,manual:false,next:null};
+function beat(ms){ if(!D.manual) return wait(ms); $("capKey").hidden=false; const t=D.tok; return new Promise((res,rej)=>{ D.next=()=>{ D.next=null; $("capKey").hidden=true; t===D.tok&&D.on?res():rej("stop"); }; }); }
+document.addEventListener("keydown",e=>{
+  if(!D.on) return;
+  if(e.key==="Escape"){ stopDemo(); return; }
+  if(D.manual && ["ArrowRight","PageDown"," ","Enter"].includes(e.key) && D.next && !(e.target.matches&&e.target.matches("textarea,input,select"))){ e.preventDefault(); D.next(); }
+});
+document.addEventListener("click",e=>{ if(D.on&&D.manual&&D.next&&e.target.closest("#caption")) D.next(); });
 const wait=ms=>new Promise((res,rej)=>{const t=D.tok; setTimeout(()=>D.on&&t===D.tok?res():rej("stop"), reduce?Math.min(ms,300):ms);});
 function cap(i,n,t){ $("caption").hidden=false; $("capN").textContent=i+" / "+n; $("capT").textContent=t; $("capBar").style.width=(i/n*100)+"%"; }
-async function typeInto(el,text,speed){ el.value=""; el.focus({preventScroll:true}); for(const ch of Array.from(text)){ await wait(speed); el.value+=ch; el.dispatchEvent(new Event("input",{bubbles:true})); } }
+async function typeInto(el,text,speed){ el.value=""; el.focus({preventScroll:true}); for(const ch of Array.from(text)){ await wait(speed); el.value+=ch; el.dispatchEvent(new Event("input",{bubbles:true})); } el.blur(); }
 function resetAll(){
   const me=people.find(p=>p.id==="asha"); Object.assign(me,{name:"Asha Kumari",cv:ASHA_CV,extra:"",role:"acq",decision:null,live:false});
   people.forEach(p=>p.decision=null); R.log=[]; R.role="acq"; R.sel="asha";
   Object.assign(C,{step:1,words:"",pick:"acq",cv:ASHA_CV,name:"Asha Kumari"});
 }
-async function runDemo(){
-  D.on=true; D.tok++; const btn=$("demoBtn"); btn.dataset.on="true"; btn.querySelector("span").textContent="Stop demo";
+async function runDemo(manual){
+  D.on=true; D.tok++; D.manual=!!manual; const btn=$(manual?"presentBtn":"demoBtn"); btn.dataset.on="true"; btn.querySelector("span").textContent="Stop"; $(manual?"demoBtn":"presentBtn").hidden=true;
+  if(document.activeElement) document.activeElement.blur();
+  $("caption").classList.toggle("mini",!!manual);
   const N=7;
   try{
-    resetAll(); show("candidate"); drawPhone(); drawRecruiter(); window.scrollTo({top:0,behavior:"smooth"});
-    cap(1,N,"Meet Asha. She sells insurance door to door and writes in Hindi."); await wait(2200);
+    resetAll(); show("candidate"); drawPhone(); drawRecruiter();
+    if(manual) $("view-candidate").scrollIntoView({behavior:reduce?"auto":"smooth",block:"start"}); else window.scrollTo({top:0,behavior:"smooth"});
+    cap(1,N,"Meet Asha. She sells insurance door to door and writes in Hindi."); await beat(2200);
     cap(2,N,"She describes her work in her own words. The engine picks out her skills as she types.");
-    await typeInto($("words"),START_WORDS,55); await wait(1600);
-    cap(3,N,"Roles re-rank by fit. Her best match is a frontline sales role she would never find by job title."); await wait(2600);
+    await typeInto($("words"),START_WORDS,55); await beat(1600);
+    cap(3,N,"Roles re-rank by fit. Her best match is a frontline sales role she would never find by job title."); await beat(2600);
     $("pbody").querySelector('[data-apply="acq"]').click(); await wait(900);
-    cap(4,N,"She applies in one step, with her Hindi CV. Nothing to retype."); await wait(2400);
+    cap(4,N,"She applies in one step, with her Hindi CV. Nothing to retype."); await beat(2400);
     $("submit").click(); await wait(1200);
-    cap(5,N,"64% match. A keyword filter would have rejected her. The engine asks one question instead."); await wait(3200);
+    cap(5,N,"64% match. A keyword filter would have rejected her. The engine asks one question instead."); await beat(3200);
     await typeInto($("ans"),SAMPLE_ANSWER,28); await wait(700); $("send").click(); await wait(1800);
-    cap(6,N,"Her answer shows banking experience. She moves to Strong match and is shortlisted."); await wait(3000);
-    show("recruiter"); window.scrollTo({top:0,behavior:"smooth"}); drawRecruiter();
-    cap(7,N,"The recruiter sees every skill with the line in her CV that proves it, and makes the call."); await wait(4200);
-    const det=$("detail"); det.scrollIntoView({behavior:reduce?"auto":"smooth",block:"start"}); await wait(3800);
+    cap(6,N,"Her answer shows banking experience. She moves to Strong match and is shortlisted."); await beat(3000);
+    show("recruiter"); drawRecruiter(); if(manual) $("view-recruiter").scrollIntoView({behavior:reduce?"auto":"smooth",block:"start"}); else window.scrollTo({top:0,behavior:"smooth"});
+    cap(7,N,"The recruiter sees every skill with the line in her CV that proves it, and makes the call."); await beat(4200);
+    const det=$("detail"); det.scrollIntoView({behavior:reduce?"auto":"smooth",block:"start"}); await beat(3800);
   }catch(e){}
   stopDemo();
 }
-function stopDemo(){ D.on=false; D.tok++; $("caption").hidden=true; const b=$("demoBtn"); b.dataset.on="false"; b.querySelector("span").textContent="Play demo"; }
-$("demoBtn").onclick=()=>D.on?stopDemo():runDemo();
+function stopDemo(){ D.on=false; D.tok++; D.next=null; $("caption").hidden=true; $("capKey").hidden=true;
+  const b=$("demoBtn"), pb=$("presentBtn"); b.hidden=false; pb.hidden=false;
+  b.dataset.on="false"; b.querySelector("span").textContent="Play demo"; pb.dataset.on="false"; pb.querySelector("span").textContent="Present"; }
+$("demoBtn").onclick=()=>D.on?stopDemo():runDemo(false);
+$("presentBtn").onclick=()=>D.on?stopDemo():runDemo(true);
 
 drawPhone(); drawRecruiter(); drawStats(); show(location.hash.slice(1)||"candidate");
 </script>
