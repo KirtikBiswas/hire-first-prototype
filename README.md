@@ -1,25 +1,68 @@
 # Hire FIRST prototype
 
-A working prototype of a skills-based hiring engine, built for IDFC FIRST Bank FAME 6.0 Open Innovation Challenge, Problem Statement 2 (Reimagining Hiring at Scale).
+An interactive student concept for IDFC FIRST Bank FAME 6.0, Problem Statement 2: **Reimagining Hiring at Scale**.
 
 **Live demo:** https://kirtikbiswas.github.io/hire-first-prototype/
 
-## What it shows
+## What the prototype demonstrates
 
-- **Candidate view:** a phone-style app beside a live engine trace. A candidate describes her work in Hindi, Hinglish or English. Matching roles re-rank as she types. She applies with a Hindi CV, gets one clarifying question instead of a rejection, and is shortlisted after answering.
-- **Recruiter view:** the same application with the evidence line behind each skill score, a comparison with a keyword filter, a four-bucket triage board, and a talent pool of people who applied for other roles.
+### Candidate experience
+- Describe work experience in Hindi, Hinglish or English and see a rule-based skill trace.
+- Discover sample roles through transferable competency signals rather than exact job-title phrases.
+- Apply with a pasted CV or upload a plain-text `.txt` CV (up to 500 KB).
+- Use browser/device speech recognition for dictation where supported. Available language choices include Hindi, English (India), Bengali, Tamil and Marathi; actual availability depends on the browser and device.
+- Explicitly opt in or out of future-opportunity matching. Candidates can withdraw consent later.
+- Track clarification requests, recruiter decisions, interview scheduling, sample offer acceptance and preboarding.
 
-- **Guided demo:** Play demo runs Asha's whole story on its own, with captions.
-- **Presenter mode:** Present runs the same story one step at a time. Press the right arrow, Space, Enter or a clicker to move on; Esc stops.
+### Recruiter experience
+- Review candidates across four buckets: Strong, Potential, Uncertain and Fails mandatory criterion.
+- Inspect supporting evidence, negative statements and contradictory statements for each competency.
+- Shortlist, request clarification, reject with a reason, schedule an illustrative interview, issue a sample offer, start preboarding and confirm joining.
+- See candidate status updates reflected in the candidate tracker during the same browser session.
+- Rediscover only profiles that have explicitly opted in and match the current role.
+- Explore sample source mix, triage counts and offer-to-joining counts.
+- View a role-relevant six-archetype sourcing playbook.
+- Ask the rule-based recruiter copilot questions about the loaded sample records.
 
-## How it works
+### Simulation Lab
+- Test transferable insurance/FMCG sales experience.
+- Test negative and contradictory statements.
+- Test missing and failed mandatory qualification cases.
+- Inspect score, bucket, evidence and the reason for the result.
+- Load a selected scenario into the candidate journey.
 
-A small skills dictionary in Hindi, Hinglish and English maps phrases to competencies. Each role lists the competencies it needs, with weights. The score is the share of weighted competencies the engine finds evidence for. Candidates are sorted into four buckets: strong match (80% or more), potential match (50 to 79%), uncertain (under 50%), and fails a mandatory criterion. No borderline candidate is rejected without a question.
+### Guided presentation
+- **Present** runs the seven-step Asha story one step at a time. Press the right arrow, Space, Enter or a clicker to advance; Esc stops.
+- **Play demo** runs the story automatically with captions.
 
-In production the dictionary would be replaced by a language model trained on the bank's own role competencies. The triage rules stay the same.
+## How the screening logic works
 
-## Notes
+A small phrase dictionary in Hindi, Hinglish and English maps candidate statements to nine sample competencies. Each role has weighted competencies. The score is the share of weighted competencies with unambiguous positive evidence.
 
-Student concept by Kirtik Biswas, Sabhya Arora and Abhik Pramanik (IIM Tiruchirappalli). Not an IDFC FIRST Bank system. All people, CVs and roles are samples.
+- Strong match: 80% or more, subject to mandatory criteria.
+- Potential match: 50–79%.
+- Uncertain: below 50%, mandatory information not stated, or contradictory competency evidence.
+- Fails mandatory criterion: a sample mandatory criterion is explicitly not met.
 
-Single static HTML file with no build step. Open `index.html` in a browser, or view the GitHub Pages link above.
+Negative statements do not earn competency credit. When the prototype detects both positive and negative statements for the same competency, it flags a conflict and routes the profile to Uncertain. Clarification answers are checked for evidence relevant to the question before they are added to the sample profile.
+
+**The percentage is a weighted evidence score, not a probability of job success. Strong match is a recommendation for recruiter review, not an automatic shortlist. Recruiters remain responsible for hiring decisions.**
+
+## Important prototype limitations
+
+- This is a front-end prototype using in-memory sample data. A page refresh resets interactions. It does not connect to IDFC FIRST Bank systems or any ATS.
+- The screening mechanism is a deterministic phrase dictionary and rule-based negation/conflict heuristic, not a trained AI/LLM. It can miss context, sarcasm, complex negation and language variations. Human review is required.
+- Only plain-text `.txt` CV upload is parsed in this version. PDF/DOC/DOCX extraction needs a document-processing service.
+- Speech recognition is provided by the browser/device and may use an external speech service according to its privacy settings. Hire FIRST does not store audio or send it to a Hire FIRST backend.
+- Consent, application status, sourcing, analytics and copilot outputs are local demo interactions, not persisted production records.
+- Analytics are calculated from sample candidates. They are not bank performance data or validated business outcomes.
+- Interview dates, offers and preboarding are illustrative workflow simulations, not real appointments or employment offers.
+- Any production use would require ATS integration, secure backend storage, DPDP and legal review, role validation, bias/adverse-impact testing, security controls and a monitored pilot.
+
+## Run locally
+
+Open `index.html` in a modern browser. There is no build step or package manager.
+
+## Team
+
+Student concept by Kirtik Biswas, Sabhya Arora and Abhik Pramanik, IIM Tiruchirappalli. Not an IDFC FIRST Bank system. All people, CVs, roles and workflow events are sample data.
