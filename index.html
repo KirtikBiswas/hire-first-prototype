@@ -455,6 +455,15 @@ body{
 
 .said mark.neg,.cv mark.neg{background:var(--bad-soft);color:var(--bad);text-decoration:underline;text-decoration-style:dotted;text-underline-offset:2px}
 .crow .evidence-detail{grid-column:1/-1;font-size:11.5px;color:var(--muted);line-height:1.45;margin-top:-3px;overflow-wrap:anywhere}
+
+.speech-row{display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:11.5px;color:var(--muted)}
+.speech-row select{padding:7px 9px;border-radius:8px;border:1px solid var(--line);background:var(--surface);color:var(--fg);font:600 11.5px var(--body)}
+.prep-pack{padding:13px;border:1px solid var(--line);border-radius:14px;background:var(--surface)}
+.prep-pack b{font-size:13px}
+.prep-pack small{display:block;color:var(--muted);font-size:11px;margin-top:3px}
+.prep-pack ol{padding-left:20px;margin:10px 0;display:grid;gap:7px;font-size:12.5px}
+.source-card.selected{border-color:var(--brand-2);background:linear-gradient(150deg,var(--good-soft),var(--surface));box-shadow:0 0 0 1px color-mix(in srgb,var(--brand-2) 18%,transparent),var(--shadow)}
+.source-card p strong{color:var(--fg)}
 </style>
 </head>
 <body>
@@ -743,7 +752,7 @@ function drawPhone(){
       <div><div class="plabel">Skills we found</div><div class="skills" id="found"></div></div>
       <div><div class="plabel">Roles that fit you</div><div id="roles" style="display:flex;flex-direction:column;gap:10px"></div></div>`;
     $("words").addEventListener("input",e=>{C.words=e.target.value;updDiscover();});
-    $("mic1").onclick=()=>speechToText("words","hi-IN");
+    $("mic1").onclick=()=>speechToText("words",$("speechLang")?.value||"hi-IN");
     updDiscover(true);
   } else if(C.step===2){
     const r=role(C.pick);
@@ -751,6 +760,7 @@ function drawPhone(){
       <div class="field"><label for="cname">Your name</label><input id="cname" value="${h(C.name)}"></div>
       <div class="field"><label for="ccv">Your CV, in any language</label><textarea id="ccv">${h(C.cv)}</textarea></div>
       <div class="upload-row"><label class="upload-btn" for="cvFile">Upload text CV (.txt)</label><input id="cvFile" type="file" accept=".txt,text/plain" hidden><span id="cvFileName">No file selected</span></div>
+      <div class="speech-row"><label for="speechLang">Voice language</label><select id="speechLang"><option value="hi-IN">Hindi</option><option value="en-IN">English (India)</option><option value="bn-IN">Bengali</option><option value="ta-IN">Tamil</option><option value="mr-IN">Marathi</option></select></div>
       <button class="voice" id="voice" data-rec="false" type="button"><span class="mic" style="flex:none"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 10a2.5 2.5 0 0 0 2.5-2.5v-4a2.5 2.5 0 0 0-5 0v4A2.5 2.5 0 0 0 8 10z"/></svg></span><span class="wave">${Array.from({length:22},(_,i)=>`<i style="animation-delay:${(i%7)*.09}s"></i>`).join("")}</span><small id="vtxt">Dictate a voice note (browser support required)</small></button>
       <p class="privacy-note">Speech recognition is provided by your browser/device and may use an external speech service under its privacy settings. Hire FIRST does not store audio or send it to a Hire FIRST backend.</p>
       <label class="consent-row"><input type="checkbox" id="poolConsent" ${C.consent?"checked":""}><span><b>Yes, keep my profile for future suitable opportunities.</b><small>Optional. You can withdraw consent later. Your application can proceed without opting in.</small></span></label>
@@ -793,7 +803,7 @@ function speechToText(targetId,lang){
   recognizer.onend=()=>{if(button){button.disabled=false;if(targetId==="ccv"&&$("vtxt")) $("vtxt").textContent="Dictate a voice note (browser support required)";}};
   try{recognizer.start();}catch(e){if(button)button.disabled=false;toast("Could not start speech recognition. Please type instead.");}
 }
-function voiceNote(){ speechToText("ccv","hi-IN"); }
+function voiceNote(){ speechToText("ccv",$("speechLang")?.value||"hi-IN"); }
 function loadTextCV(file){
   if(!file) return;
   if(file.size>500000){toast("Please choose a text CV under 500 KB.");return;}
@@ -868,6 +878,15 @@ function drawTrack(){
     statusText=a.bucket==="potential"?"A short screening conversation can explore the skills already identified.":"The prototype needs more evidence before a recruiter can review the profile.";
     body=`<div class="qcard"><div class="bot">${a.bucket==="potential"?"Short screening prompt":"One quick question before a decision"}</div><p>${h(q)}</p><textarea id="ans" placeholder="Type your answer in your own words"></textarea><div class="pnav"><button class="btn sm" id="send">Send answer</button></div></div>`;
   }
+  if(me.status==="Shortlisted"||me.status==="Interview scheduled"){
+    const prepGuide={
+      acq:["Describe how you acquired a new customer and handled objections.","How did you plan a territory and achieve a monthly target?","Explain how you would build trust while explaining KYC and savings products."],
+      arm:["How would you build trust with customers in a rural market?","Describe a time you maintained long-term customer relationships.","How would you plan visits across a large service area?"],
+      teller:["How do you maintain accuracy while handling cash and customer records?","Describe how you would handle a queue during a busy branch period.","What checks would you follow before processing a customer request?"],
+      coll:["How would you handle a delayed payment respectfully?","How do you plan field visits and document collection attempts?","Describe how you de-escalate a difficult customer interaction."]
+    }[me.role]||[];
+    body+=`<div class="prep-pack"><div><b>Interview preparation pack</b><small>Illustrative prompts based on this requisition. Not an actual bank assessment.</small></div><ol>${prepGuide.map(x=>`<li>${h(x)}</li>`).join("")}</ol><p class="privacy-note">Prepare real examples. Do not share customer-identifiable information in an interview response.</p></div>`;
+  }
   el.innerHTML=`<div class="scorecard">${ring(a.score,true)}<div style="display:flex;flex-direction:column;gap:6px;min-width:0"><b style="font-family:var(--display);font-size:16px">${h(me.name)}</b><span style="font-size:12.5px;color:var(--muted)">${r.title}</span><span class="pill p-${a.bucket}">${BUCKET[a.bucket][0]}</span></div></div>
     <div class="status-banner"><span class="status-dot"></span><div><b>${h(statusTitle)}</b><small>${h(statusText)}</small></div></div>
     <div class="lifecycle">${lifecycle}</div>${body}
@@ -916,28 +935,15 @@ function traceFor(text,rid){
 }
 // ---------- recruiter view ----------
 const R = {role:"acq", sel:"asha", log:[], flash:null};
-const SOURCING = {
-  acq:[
-    ["Local retail & FMCG talent","Reach people with customer acquisition, outlet coverage and target ownership.","LOW-COST / TRANSFERABLE"],
-    ["Employee and alumni referrals","Use structured referrals from frontline colleagues; reward only after joining and retention gates.","REFERRAL"],
-    ["District hiring days","Run language-first hiring events with realistic role previews and transparent eligibility checks.","LOCAL ACTIVATION"]
-  ],
-  arm:[
-    ["Local colleges and institutes","Build district-level pipelines for relationship, field and community-facing skills.","CAMPUS / LOCAL"],
-    ["Community information sessions","Use open, accessible sessions to explain the role and minimum criteria without collecting profiles by default.","COMMUNITY"],
-    ["Opt-in talent rediscovery","Search previously interested applicants who explicitly consented to future matching.","OWNED TALENT"]
-  ],
-  teller:[
-    ["Campus and vocational institutes","Target commerce, accounting and digital-literacy learners with role-relevant assessments.","CAMPUS"],
-    ["Local walk-in drives","Offer clear job previews and accessible application support at branch catchments.","LOCAL ACTIVATION"],
-    ["Employee referrals","Reach candidates through branch staff networks with consistent evaluation standards.","REFERRAL"]
-  ],
-  coll:[
-    ["Last-mile and collections-adjacent talent","Reach delivery, field service and payment-handling workers with transferable field experience.","TRANSFERABLE"],
-    ["Local hiring events","Make eligibility, travel expectations and safety requirements clear before application.","LOCAL ACTIVATION"],
-    ["Opt-in talent rediscovery","Re-engage previous applicants only where a valid future-opportunity opt-in exists.","OWNED TALENT"]
-  ]
-};
+const ARCHETYPE_PLAYBOOK=[
+  ["Frontline high-volume","Local job fairs, retail/FMCG field networks, employee referrals and walk-in drives.","Role preview and eligibility clarity before application."],
+  ["Rural / Tier 3","District colleges, local community information sessions and language-first mobile campaigns.","Accessible application support; no profile collection without opt-in."],
+  ["Gen Z / early career","Campus partnerships, student communities, short role-preview videos and structured referral drives.","Mobile-first apply flow and transparent growth pathways."],
+  ["Passive talent","Opt-in rediscovery, alumni networks and employee referrals.","Re-engage only candidates who have consented to future opportunities."],
+  ["Specialist","Professional associations, certification bodies, technical communities and specialist job boards.","Assess role-specific evidence and verified credentials."],
+  ["Leadership","Internal mobility, executive search by exception and structured leadership referrals.","Human-led assessment, conflict checks and consistent scorecards."]
+];
+const ROLE_ARCHETYPE={acq:"Frontline high-volume",arm:"Rural / Tier 3",teller:"Gen Z / early career",coll:"Frontline high-volume"};
 function setStatus(p,status,note){
   p.status=status;p.decision=status;p.history=p.history||[];p.history.push({status,note:note||status});
 }
@@ -980,10 +986,14 @@ function renderAnalytics(mine){
   const max=Math.max(1,...Object.values(sources));
   const triage=Object.entries(counts).map(([k,v])=>`<div class="analytics-row"><span>${BUCKET[k][0]}</span><div class="analytics-track"><i style="width:${mine.length?v/mine.length*100:0}%"></i></div><b>${v}</b></div>`).join("");
   const sourceRows=Object.entries(sources).map(([k,v])=>`<div class="analytics-row"><span>${h(k)}</span><div class="analytics-track"><i style="width:${v/max*100}%"></i></div><b>${v}</b></div>`).join("")||`<div class="empty">No sample applicants for this role.</div>`;
-  $("analytics").innerHTML=`<div class="analytics-box"><h3>Four-bucket distribution</h3>${triage}<p class="privacy-note">Counts reflect the sample profiles currently loaded for this role.</p></div><div class="analytics-box"><h3>Applicant source mix</h3>${sourceRows}<p class="privacy-note">Source labels are illustrative sample attributes.</p></div>`;
+  const offers=mine.filter(x=>["Offer issued","Offer accepted","Preboarding","Preboarding complete","Joined"].includes(x.p.status)).length;
+  const accepted=mine.filter(x=>["Offer accepted","Preboarding","Preboarding complete","Joined"].includes(x.p.status)).length;
+  const joined=mine.filter(x=>x.p.status==="Joined").length;
+  $("analytics").innerHTML=`<div class="analytics-box"><h3>Four-bucket distribution</h3>${triage}<p class="privacy-note">Counts reflect the sample profiles currently loaded for this role.</p></div><div class="analytics-box"><h3>Applicant source mix</h3>${sourceRows}<p class="privacy-note">Source labels are illustrative sample attributes.</p></div><div class="analytics-box"><h3>Offer-to-joining sample funnel</h3><div class="analytics-row"><span>Offers issued</span><div class="analytics-track"><i style="width:${mine.length?offers/mine.length*100:0}%"></i></div><b>${offers}</b></div><div class="analytics-row"><span>Accepted</span><div class="analytics-track"><i style="width:${offers?accepted/offers*100:0}%"></i></div><b>${accepted}</b></div><div class="analytics-row"><span>Joined</span><div class="analytics-track"><i style="width:${accepted?joined/accepted*100:0}%"></i></div><b>${joined}</b></div><p class="privacy-note">These are live counts from the local sample workflow, not bank conversion rates. Time-to-shortlist is not captured in this prototype.</p></div>`;
 }
 function renderSourcing(r){
-  $("sourcing").innerHTML=(SOURCING[r.id]||[]).map(([title,copy,type])=>`<div class="source-card"><span class="source-type">${h(type)}</span><b>${h(title)}</b><p>${h(copy)}</p></div>`).join("");
+  const selected=ROLE_ARCHETYPE[r.id];
+  $("sourcing").innerHTML=ARCHETYPE_PLAYBOOK.map(([name,channel,play])=>`<div class="source-card ${name===selected?"selected":""}"><span class="source-type">${name===selected?"RECOMMENDED FOR THIS ROLE":"TALENT ARCHETYPE"}</span><b>${h(name)}</b><p><strong>Channels:</strong> ${h(channel)}</p><p><strong>Activation:</strong> ${h(play)}</p></div>`).join("");
 }
 function runCopilot(query){
   const q=(query||$("copilotQuery").value||"").trim().toLowerCase(),r=role(R.role);
