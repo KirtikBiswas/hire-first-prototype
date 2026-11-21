@@ -9,13 +9,13 @@
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&family=Noto+Sans+Devanagari:wght@400;500;600;700&display=swap">
 <style>
-/* Layout: product shell. App bar with view switch and a demo button; candidate view = phone device beside a live "engine trace"; recruiter view = KPI strip, triage board, evidence workspace. Maroon and gold from the bank's own palette, cool rose-grey neutrals. */
+/* Layout: product shell. App bar with view switch and a demo button; candidate view = phone device beside a live "engine trace"; recruiter view = KPI strip, triage board, evidence workspace. A cooler midnight-navy, teal and champagne-gold palette with blue-grey neutrals. */
 :root{
-  --bg:#f6f3f4; --bg2:#efe8ea; --surface:#ffffff; --sunk:#f3ecee; --line:#e6d9dc; --line2:#d8c4c8;
-  --fg:#231719; --muted:#6f5d61; --faint:#9a888c;
-  --brand:#7d1820; --brand-2:#a32631; --brand-deep:#4c0d12; --on-brand:#ffffff;
-  --gold:#d9a441; --gold-2:#f3d48a; --gold-soft:#fbf1da; --on-gold:#3b2507;
-  --good:#1f7a4d; --good-soft:#e2f3ea; --warn:#b36b05; --warn-soft:#fcefd9; --bad:#6f5d61; --bad-soft:#ece5e6; --pot:#7d1820; --pot-soft:#f6e1e3;
+  --bg:#F3F6FA; --bg2:#EAF0F6; --surface:#ffffff; --sunk:#F7F9FC; --line:#DCE5EF; --line2:#C8D5E3;
+  --fg:#142235; --muted:#607086; --faint:#8A99AB;
+  --brand:#183B56; --brand-2:#216A78; --brand-deep:#102A43; --on-brand:#ffffff;
+  --gold:#D3A64A; --gold-2:#F0D89A; --gold-soft:#FBF5E7; --on-gold:#3D321D;
+  --good:#16836C; --good-soft:#E5F5F0; --warn:#B7791F; --warn-soft:#FFF4DD; --bad:#9B4A52; --bad-soft:#F8EAEC; --pot:#287C94; --pot-soft:#E8F4F7;
   --shadow:0 1px 2px rgba(60,20,25,.06),0 8px 24px rgba(60,20,25,.08);
   --shadow-lg:0 2px 6px rgba(60,20,25,.08),0 24px 60px rgba(60,20,25,.18);
   --display:"Space Grotesk","Plus Jakarta Sans",system-ui,sans-serif;
@@ -23,18 +23,18 @@
   --r:14px; --r-sm:10px;
 }
 @media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
-  --bg:#130d0e; --bg2:#1a1213; --surface:#1e1516; --sunk:#271c1d; --line:#3a2a2c; --line2:#4d3739;
-  --fg:#f5ecec; --muted:#bba7aa; --faint:#8d797c;
-  --brand:#e0636e; --brand-2:#f08891; --brand-deep:#f6c0c5; --on-brand:#1d0809;
-  --gold:#e9b54c; --gold-2:#f6d78f; --gold-soft:#33270f; --on-gold:#2a1a03;
-  --good:#5fd197; --good-soft:#15301f; --warn:#f2b553; --warn-soft:#34260c; --bad:#bba7aa; --bad-soft:#2d2324; --pot:#f08891; --pot-soft:#3a1d20;
+  --bg:#0C1726; --bg2:#111F31; --surface:#17283C; --sunk:#20344A; --line:#2B4058; --line2:#38516D;
+  --fg:#EFF5FA; --muted:#B2C1D1; --faint:#8294A8;
+  --brand:#7CB7C3; --brand-2:#9BD3D7; --brand-deep:#C5E7E8; --on-brand:#0A1726;
+  --gold:#E7BD68; --gold-2:#F5DFA8; --gold-soft:#3A321F; --on-gold:#231D12;
+  --good:#55C6A4; --good-soft:#17372F; --warn:#F0C36D; --warn-soft:#3D321D; --bad:#D38A93; --bad-soft:#3D2934; --pot:#83C7D4; --pot-soft:#203A45;
   --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.35); --shadow-lg:0 2px 6px rgba(0,0,0,.5),0 24px 60px rgba(0,0,0,.55); color-scheme:dark } }
 :root[data-theme="dark"]{
-  --bg:#130d0e; --bg2:#1a1213; --surface:#1e1516; --sunk:#271c1d; --line:#3a2a2c; --line2:#4d3739;
-  --fg:#f5ecec; --muted:#bba7aa; --faint:#8d797c;
-  --brand:#e0636e; --brand-2:#f08891; --brand-deep:#f6c0c5; --on-brand:#1d0809;
-  --gold:#e9b54c; --gold-2:#f6d78f; --gold-soft:#33270f; --on-gold:#2a1a03;
-  --good:#5fd197; --good-soft:#15301f; --warn:#f2b553; --warn-soft:#34260c; --bad:#bba7aa; --bad-soft:#2d2324; --pot:#f08891; --pot-soft:#3a1d20;
+  --bg:#0C1726; --bg2:#111F31; --surface:#17283C; --sunk:#20344A; --line:#2B4058; --line2:#38516D;
+  --fg:#EFF5FA; --muted:#B2C1D1; --faint:#8294A8;
+  --brand:#7CB7C3; --brand-2:#9BD3D7; --brand-deep:#C5E7E8; --on-brand:#0A1726;
+  --gold:#E7BD68; --gold-2:#F5DFA8; --gold-soft:#3A321F; --on-gold:#231D12;
+  --good:#55C6A4; --good-soft:#17372F; --warn:#F0C36D; --warn-soft:#3D321D; --bad:#D38A93; --bad-soft:#3D2934; --pot:#83C7D4; --pot-soft:#203A45;
   --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.35); --shadow-lg:0 2px 6px rgba(0,0,0,.5),0 24px 60px rgba(0,0,0,.55); color-scheme:dark }
 
 *{box-sizing:border-box}
@@ -51,8 +51,8 @@ button:focus-visible,textarea:focus-visible,select:focus-visible,input:focus-vis
 .appbar-in{max-width:1220px;margin:0 auto;padding-block:10px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;align-items:center;gap:14px;flex-wrap:wrap}
 .logo{display:flex;align-items:center;gap:10px;margin-right:auto}
 .mark{width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,var(--brand-deep),var(--brand-2));display:grid;place-items:center;color:var(--gold-2);font:700 15px var(--display);box-shadow:inset 0 0 0 1px rgba(255,255,255,.12)}
-:root[data-theme="dark"] .mark{background:linear-gradient(135deg,#4c0d12,#a32631);color:#f3d48a}
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .mark{background:linear-gradient(135deg,#4c0d12,#a32631);color:#f3d48a}}
+:root[data-theme="dark"] .mark{background:linear-gradient(135deg,#102A43,#216A78);color:#F0D89A}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .mark{background:linear-gradient(135deg,#102A43,#216A78);color:#F0D89A}}
 .logo b{font:700 17px var(--display);letter-spacing:-.01em}
 .logo span{display:block;font-size:11.5px;color:var(--muted);font-weight:500}
 .seg{display:flex;background:var(--sunk);border:1px solid var(--line);padding:3px;border-radius:999px}
@@ -91,24 +91,24 @@ button:focus-visible,textarea:focus-visible,select:focus-visible,input:focus-vis
 @media (max-width:900px){.cand{grid-template-columns:minmax(0,1fr)}}
 .stage{position:relative;display:flex;justify-content:center;padding:6px 0}
 .stage::before{content:"";position:absolute;inset:4% 0 0;background:radial-gradient(60% 50% at 50% 40%,color-mix(in srgb,var(--gold) 28%,transparent),transparent 70%),radial-gradient(50% 50% at 30% 80%,color-mix(in srgb,var(--brand) 18%,transparent),transparent 70%);filter:blur(10px);z-index:0}
-.device{position:relative;z-index:1;width:min(372px,100%);height:740px;border-radius:46px;background:#120c0d;padding:11px;box-shadow:var(--shadow-lg),inset 0 0 0 2px #2c2022}
+.device{position:relative;z-index:1;width:min(372px,100%);height:740px;border-radius:46px;background:#0B1726;padding:11px;box-shadow:var(--shadow-lg),inset 0 0 0 2px #2D4258}
 .screen{position:relative;height:100%;border-radius:36px;overflow:hidden;background:var(--bg);display:flex;flex-direction:column}
-.notch{position:absolute;top:9px;left:50%;transform:translateX(-50%);width:110px;height:28px;border-radius:20px;background:#120c0d;z-index:5}
+.notch{position:absolute;top:9px;left:50%;transform:translateX(-50%);width:110px;height:28px;border-radius:20px;background:#0B1726;z-index:5}
 .status{display:flex;justify-content:space-between;align-items:center;padding:14px 26px 6px;font:600 13px var(--body);color:var(--on-brand);background:var(--brand-deep)}
-:root[data-theme="dark"] .status{background:#2a1214;color:#f5ecec}
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .status{background:#2a1214;color:#f5ecec}}
+:root[data-theme="dark"] .status{background:#1B3045;color:#EFF5FA}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .status{background:#1B3045;color:#EFF5FA}}
 .status svg{width:46px;height:12px}
 .apphead{background:var(--brand-deep);color:var(--on-brand);padding:8px 18px 16px;display:flex;flex-direction:column;gap:12px}
-:root[data-theme="dark"] .apphead{background:#2a1214;color:#f5ecec}
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .apphead{background:#2a1214;color:#f5ecec}}
+:root[data-theme="dark"] .apphead{background:#1B3045;color:#EFF5FA}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .apphead{background:#1B3045;color:#EFF5FA}}
 .apphead .t{display:flex;align-items:center;gap:10px}
-.apphead .av{width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,#d9a441,#f3d48a);color:#3b2507;display:grid;place-items:center;font:700 13px var(--display)}
+.apphead .av{width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,#D3A64A,#F0D89A);color:#3D321D;display:grid;place-items:center;font:700 13px var(--display)}
 .apphead b{font:700 15px var(--display)}
 .apphead small{display:block;font-size:11.5px;opacity:.8}
-.verified{display:inline-grid;place-items:center;width:15px;height:15px;border-radius:50%;background:#d9a441;color:#3b2507;font-size:10px;margin-left:4px;vertical-align:1px}
+.verified{display:inline-grid;place-items:center;width:15px;height:15px;border-radius:50%;background:#D3A64A;color:#3D321D;font-size:10px;margin-left:4px;vertical-align:1px}
 .stepper{display:flex;gap:6px}
 .stepper span{flex:1;height:4px;border-radius:4px;background:rgba(255,255,255,.22);overflow:hidden;position:relative}
-.stepper span::after{content:"";position:absolute;inset:0;width:0;background:#f3d48a;transition:width .5s ease}
+.stepper span::after{content:"";position:absolute;inset:0;width:0;background:#F0D89A;transition:width .5s ease}
 .stepper span.on::after{width:100%}
 .steplbl{display:flex;justify-content:space-between;font-size:11px;font-weight:600;opacity:.85;margin-top:-4px}
 .pbody{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:14px;scroll-behavior:smooth}
@@ -248,8 +248,8 @@ button:focus-visible,textarea:focus-visible,select:focus-visible,input:focus-vis
 .kpi .l{font-size:12.5px;color:var(--muted)}
 .kpi.hl{background:linear-gradient(135deg,var(--brand-deep),var(--brand));border-color:transparent;color:#fff}
 .kpi.hl .l{color:rgba(255,255,255,.8)}
-:root[data-theme="dark"] .kpi.hl{background:linear-gradient(135deg,#4c0d12,#8e1e27)}
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .kpi.hl{background:linear-gradient(135deg,#4c0d12,#8e1e27)}}
+:root[data-theme="dark"] .kpi.hl{background:linear-gradient(135deg,#102A43,#216A78)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .kpi.hl{background:linear-gradient(135deg,#102A43,#216A78)}}
 .board{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
 @media (max-width:900px){.board{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (max-width:480px){.board{grid-template-columns:minmax(0,1fr)}}
@@ -313,11 +313,11 @@ button:focus-visible,textarea:focus-visible,select:focus-visible,input:focus-vis
 /* ---------- toast + demo caption ---------- */
 .toast{position:fixed;left:50%;bottom:calc(96px + env(safe-area-inset-bottom,0px));transform:translate(-50%,30px);opacity:0;background:var(--fg);color:var(--bg);padding:10px 16px;border-radius:12px;font-size:13.5px;font-weight:600;transition:all .3s;z-index:40;max-width:calc(100% - 32px)}
 .toast.on{transform:translate(-50%,0);opacity:1}
-.caption{position:fixed;left:max(20px,env(safe-area-inset-left,0px));bottom:calc(20px + env(safe-area-inset-bottom,0px));z-index:41;background:linear-gradient(135deg,#4c0d12,#8e1e27);color:#fff;border-radius:16px;padding:12px 16px;box-shadow:var(--shadow-lg);display:flex;align-items:center;gap:12px;max-width:calc(100% - 32px);width:560px}
-.caption .n{font:700 12px var(--display);background:#d9a441;color:#3b2507;border-radius:8px;padding:4px 8px;white-space:nowrap}
+.caption{position:fixed;left:max(20px,env(safe-area-inset-left,0px));bottom:calc(20px + env(safe-area-inset-bottom,0px));z-index:41;background:linear-gradient(135deg,#102A43,#216A78);color:#fff;border-radius:16px;padding:12px 16px;box-shadow:var(--shadow-lg);display:flex;align-items:center;gap:12px;max-width:calc(100% - 32px);width:560px}
+.caption .n{font:700 12px var(--display);background:#D3A64A;color:#3D321D;border-radius:8px;padding:4px 8px;white-space:nowrap}
 .caption p{font-size:14px;font-weight:600;flex:1}
 .caption .bar2{position:absolute;left:12px;right:12px;bottom:6px;height:3px;border-radius:3px;background:rgba(255,255,255,.18);overflow:hidden}
-.caption .bar2 i{display:block;height:100%;background:#f3d48a;transition:width .4s}
+.caption .bar2 i{display:block;height:100%;background:#F0D89A;transition:width .4s}
 .foot{font-size:12px;color:var(--faint);text-align:center}
 
 @media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
@@ -331,6 +331,58 @@ button:focus-visible,textarea:focus-visible,select:focus-visible,input:focus-vis
 @media(max-width:640px){
   .present-help{order:5;flex:1 0 100%;justify-content:center;text-align:center;border-radius:10px}
   .caption.mini{left:16px;right:16px;max-width:none;justify-content:center}
+}
+
+/* Cool premium visual system: soft depth, calmer surfaces and restrained accent use. */
+body{
+  background:
+    radial-gradient(ellipse at 8% 4%, color-mix(in srgb,var(--brand-2) 7%,transparent),transparent 34rem),
+    radial-gradient(ellipse at 94% 16%, color-mix(in srgb,var(--gold) 9%,transparent),transparent 30rem),
+    var(--bg);
+}
+.appbar{
+  box-shadow:0 8px 24px rgba(20,42,65,.055);
+}
+.mark{
+  background:linear-gradient(135deg,var(--brand-deep),var(--brand-2));
+  color:var(--gold-2);
+  box-shadow:0 7px 18px rgba(33,106,120,.22),inset 0 1px 0 rgba(255,255,255,.18);
+}
+.demo-btn:not(.present){
+  background:linear-gradient(135deg,var(--brand-deep),var(--brand-2));
+  box-shadow:0 7px 18px rgba(33,106,120,.20),inset 0 1px 0 rgba(255,255,255,.14);
+}
+.demo-btn.present{
+  border:1px solid color-mix(in srgb,var(--brand-2) 22%,var(--line));
+  color:var(--brand);
+}
+.card,.stat,.kpi,.col,.inputcard,.rolecard,.device{
+  box-shadow:0 1px 0 rgba(255,255,255,.72) inset,var(--shadow);
+}
+.card{
+  background:linear-gradient(155deg,color-mix(in srgb,var(--surface) 97%,var(--brand-2) 3%),var(--surface) 72%);
+}
+.kpi.hl{
+  background:linear-gradient(135deg,var(--brand-deep),var(--brand-2));
+}
+.rolecard:hover,.pcard:hover,.card:hover{
+  border-color:color-mix(in srgb,var(--brand-2) 30%,var(--line));
+}
+.caption{
+  background:linear-gradient(135deg,var(--brand-deep),var(--brand-2));
+}
+.caption .n{
+  background:var(--gold-2);
+  color:var(--brand-deep);
+}
+@media (prefers-color-scheme:dark){
+  .appbar{box-shadow:0 8px 28px rgba(0,0,0,.22)}
+  .card,.stat,.kpi,.col,.inputcard,.rolecard,.device{
+    box-shadow:0 1px 0 rgba(255,255,255,.045) inset,var(--shadow);
+  }
+  .card{
+    background:linear-gradient(155deg,color-mix(in srgb,var(--surface) 94%,var(--brand-2) 6%),var(--surface) 72%);
+  }
 }
 </style>
 </head>
@@ -499,12 +551,12 @@ const ASHA_VOICE = "मेरा नाम आशा है। मैं ती�
 const START_WORDS = "मैं घर-घर जाकर बीमा बेचती हूँ, टारगेट पूरा करती हूँ और मेरे ग्राहक दोबारा आते हैं";
 const SAMPLE_ANSWER = "हाँ, मैंने अपने ग्राहकों का बचत खाता खुलवाने में मदद की है और KYC के कागज़ समझाए हैं।";
 let people = [
-  {id:"asha", name:"Asha Kumari", role:"acq", cv:ASHA_CV, extra:"", decision:null, live:false, color:"#b8323d"},
-  {id:"ravi", name:"Ravi Patil", role:"acq", cv:"Ravi Patil\nFMCG distributor salesman, 4 years\nCovered 60 retail shops on a bike route in the district\nAchieved monthly sales target most months\nHelped shop owners open current accounts through a bank agent\nB.Com graduate. Marathi and Hindi", extra:"", decision:null, color:"#2f6f9a"},
-  {id:"sunita", name:"Sunita Rao", role:"acq", cv:"Sunita Rao\nTelecom promoter, sold new connections door to door\nTop performer incentive for 3 months\nBA graduate. Tamil and English", extra:"", decision:null, color:"#7a4fa3"},
-  {id:"meena", name:"Meena Devi", role:"acq", cv:"Meena Devi\nSelf help group ki member hoon\nGaon mein mahilaon ka bachat khata khulwaya\nGroup ka hisab rakhti hoon\n10th pass", extra:"", decision:null, color:"#b07a12"},
-  {id:"karan", name:"Karan Mehta", role:"acq", cv:"Karan Mehta\nFresher, B.Com graduate\nComputer course, Excel and Tally", extra:"", decision:null, color:"#3d7a5a"},
-  {id:"imran", name:"Imran Shaikh", role:"coll", cv:"Imran Shaikh\nDelivery executive, 2 years, field route on a bike\nCash collection from customers every day\nUses a smartphone app and UPI\n12th pass", extra:"", decision:null, color:"#5a5f9e"},
+  {id:"asha", name:"Asha Kumari", role:"acq", cv:ASHA_CV, extra:"", decision:null, live:false, color:"#367C8E"},
+  {id:"ravi", name:"Ravi Patil", role:"acq", cv:"Ravi Patil\nFMCG distributor salesman, 4 years\nCovered 60 retail shops on a bike route in the district\nAchieved monthly sales target most months\nHelped shop owners open current accounts through a bank agent\nB.Com graduate. Marathi and Hindi", extra:"", decision:null, color:"#477D9B"},
+  {id:"sunita", name:"Sunita Rao", role:"acq", cv:"Sunita Rao\nTelecom promoter, sold new connections door to door\nTop performer incentive for 3 months\nBA graduate. Tamil and English", extra:"", decision:null, color:"#7B78A8"},
+  {id:"meena", name:"Meena Devi", role:"acq", cv:"Meena Devi\nSelf help group ki member hoon\nGaon mein mahilaon ka bachat khata khulwaya\nGroup ka hisab rakhti hoon\n10th pass", extra:"", decision:null, color:"#B0843D"},
+  {id:"karan", name:"Karan Mehta", role:"acq", cv:"Karan Mehta\nFresher, B.Com graduate\nComputer course, Excel and Tally", extra:"", decision:null, color:"#438B7A"},
+  {id:"imran", name:"Imran Shaikh", role:"coll", cv:"Imran Shaikh\nDelivery executive, 2 years, field route on a bike\nCash collection from customers every day\nUses a smartphone app and UPI\n12th pass", extra:"", decision:null, color:"#617FA8"},
 ];
 const full = p => p.cv + (p.extra ? "\n" + p.extra : "");
 const role = id => ROLES.find(r=>r.id===id);
@@ -534,7 +586,7 @@ function animateRings(root){ requestAnimationFrame(()=>requestAnimationFrame(()=
 function toast(msg){ const t=$("toast"); t.textContent=msg; t.classList.add("on"); clearTimeout(toast.t); toast.t=setTimeout(()=>t.classList.remove("on"),2600); }
 function confetti(){
   if(reduce) return; const box=document.createElement("div"); box.className="confetti";
-  const cols=["#d9a441","#f3d48a","#8e1e27","#1f7a4d","#e0636e"];
+  const cols=["#D3A64A","#F0D89A","#216A78","#16836C","#7CB7C3"];
   for(let i=0;i<46;i++){ const p=document.createElement("i"); p.style.left=Math.random()*100+"%"; p.style.background=cols[i%cols.length]; p.style.animationDelay=(Math.random()*.4)+"s"; p.style.transform=`rotate(${Math.random()*180}deg)`; box.appendChild(p); }
   $("screen").appendChild(box); setTimeout(()=>box.remove(),2200);
 }
