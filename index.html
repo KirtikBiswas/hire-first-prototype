@@ -384,6 +384,74 @@ body{
     background:linear-gradient(155deg,color-mix(in srgb,var(--surface) 94%,var(--brand-2) 6%),var(--surface) 72%);
   }
 }
+
+/* Product-demo expansion: consent, lifecycle, sourcing, analytics and simulation lab. */
+.upload-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.upload-btn{display:inline-flex;align-items:center;padding:8px 12px;border-radius:10px;border:1px solid var(--line2);background:var(--surface);color:var(--brand);font-size:12px;font-weight:700;cursor:pointer}
+#cvFileName{font-size:11.5px;color:var(--muted)}
+.privacy-note{font-size:11.5px;color:var(--muted);line-height:1.5}
+.consent-row{display:flex;gap:10px;align-items:flex-start;padding:11px 12px;background:var(--good-soft);border:1px solid color-mix(in srgb,var(--good) 24%,var(--line));border-radius:12px;font-size:12px;cursor:pointer}
+.consent-row input{margin-top:3px;accent-color:var(--good);flex:none}
+.consent-row b,.consent-row small{display:block}
+.consent-row small{font-size:11px;color:var(--muted);margin-top:3px;line-height:1.4}
+.status-banner{display:flex;align-items:flex-start;gap:10px;padding:13px;background:var(--sunk);border:1px solid var(--line);border-radius:14px}
+.status-banner .status-dot{width:10px;height:10px;border-radius:50%;background:var(--brand-2);margin-top:5px;flex:none}
+.status-banner b{display:block;font:700 15px var(--display)}
+.status-banner small{display:block;color:var(--muted);font-size:12px;line-height:1.45;margin-top:3px}
+.lifecycle{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px}
+.life-step{padding:8px 5px;border-radius:10px;background:var(--sunk);border:1px solid var(--line);text-align:center;color:var(--muted);font-size:10.5px;font-weight:700}
+.life-step.done{background:var(--good-soft);border-color:color-mix(in srgb,var(--good) 28%,var(--line));color:var(--good)}
+.life-step.current{background:var(--gold-soft);border-color:var(--gold);color:var(--fg);box-shadow:0 4px 12px color-mix(in srgb,var(--gold) 18%,transparent)}
+.track-actions{display:flex;gap:8px;flex-wrap:wrap}
+.track-actions .btn{flex:1}
+.consent-manage{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 12px;border-radius:12px;border:1px solid var(--line);background:var(--surface)}
+.consent-manage small{display:block;color:var(--muted);font-size:11px;margin-top:2px}
+.evidence-state{display:inline-flex;padding:2px 7px;border-radius:999px;font-size:10px;font-weight:800;margin-left:5px}
+.evidence-state.positive{background:var(--good-soft);color:var(--good)}
+.evidence-state.negative{background:var(--bad-soft);color:var(--bad)}
+.evidence-state.conflict{background:var(--warn-soft);color:var(--warn)}
+.evidence-state.missing{background:var(--sunk);color:var(--muted)}
+.analytics-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.analytics-box{padding:13px;border:1px solid var(--line);border-radius:12px;background:var(--sunk);min-width:0}
+.analytics-box h3{font-size:13px;margin-bottom:10px}
+.analytics-row{display:grid;grid-template-columns:minmax(0,1fr) 3fr 28px;gap:8px;align-items:center;margin:8px 0;font-size:11.5px}
+.analytics-track{height:8px;border-radius:99px;background:var(--line);overflow:hidden}
+.analytics-track i{display:block;height:100%;background:linear-gradient(90deg,var(--brand),var(--brand-2));border-radius:99px}
+.sourcing-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.source-card{padding:13px;border-radius:12px;border:1px solid var(--line);background:var(--sunk);display:flex;flex-direction:column;gap:6px}
+.source-card b{font-size:13px}
+.source-card p{font-size:12px;color:var(--muted);line-height:1.45}
+.source-card .source-type{font-size:10px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--brand)}
+.copilot-bar{display:flex;gap:8px}
+.copilot-bar input{flex:1;min-width:0;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--surface);color:var(--fg);font:500 13px var(--body)}
+.query-chips{display:flex;gap:7px;flex-wrap:wrap}
+.query-chips .sug{font-size:11.5px}
+.copilot-output{padding:13px;border-radius:12px;background:var(--sunk);border:1px solid var(--line);font-size:12.5px;line-height:1.55;min-height:48px}
+.copilot-list{display:grid;gap:7px;margin-top:8px}
+.copilot-item{display:flex;justify-content:space-between;gap:10px;padding:8px 10px;background:var(--surface);border-radius:9px;border:1px solid var(--line)}
+.lab-view{display:flex;flex-direction:column;gap:16px}
+.lab-hero{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.lab-hero h2{font:700 clamp(25px,3vw,36px) var(--display);margin-top:7px}
+.lab-hero p{max-width:68ch;color:var(--muted);margin-top:8px;font-size:14px}
+.lab-stamp{display:flex;flex-direction:column;gap:3px;padding:12px 14px;border:1px solid var(--line);border-radius:12px;background:var(--surface);box-shadow:var(--shadow)}
+.lab-stamp b{color:var(--brand);font-size:11px;letter-spacing:.08em}
+.lab-stamp span{font-size:11px;color:var(--muted)}
+.lab-controls{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr) auto;align-items:end}
+.lab-select{width:100%;padding:11px 12px;border:1px solid var(--line);border-radius:10px;background:var(--surface);color:var(--fg);font:600 13px var(--body)}
+.lab-actions{display:flex;gap:8px;flex-wrap:wrap}
+.lab-result{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:14px}
+.lab-panel{padding:18px;border:1px solid var(--line);border-radius:14px;background:var(--surface);box-shadow:var(--shadow);min-width:0}
+.lab-panel h3{font-size:16px;margin-bottom:10px}
+.lab-score{display:flex;align-items:center;gap:15px;margin-bottom:14px}
+.lab-score strong{font:700 34px var(--display)}
+.lab-score small{display:block;color:var(--muted);font-size:11px}
+.lab-reason{padding:10px 12px;border-left:3px solid var(--gold);background:var(--gold-soft);border-radius:8px;font-size:12.5px;line-height:1.5;margin-top:10px}
+.lab-evidence{display:grid;gap:8px}
+.lab-evidence-row{padding:9px 11px;border-radius:10px;background:var(--sunk);font-size:12px;display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+.lab-evidence-row small{display:block;color:var(--muted);font-size:11px;margin-top:3px}
+.lab-note{font-size:11px;color:var(--muted);line-height:1.5;margin-top:10px}
+@media(max-width:900px){.sourcing-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.lab-controls{grid-template-columns:1fr 1fr}.lab-actions{grid-column:1/-1}.lab-result{grid-template-columns:1fr}}
+@media(max-width:640px){.analytics-grid,.sourcing-grid{grid-template-columns:1fr}.lifecycle{grid-template-columns:repeat(4,minmax(0,1fr))}.lab-controls{grid-template-columns:1fr}.lab-actions{grid-column:auto}.copilot-bar{flex-direction:column}}
 </style>
 </head>
 <body>
@@ -394,6 +462,7 @@ body{
     <div class="seg" role="tablist" aria-label="View">
       <button id="tab-candidate" role="tab" aria-selected="true" aria-controls="view-candidate" tabindex="0" data-view="candidate">Candidate</button>
       <button id="tab-recruiter" role="tab" aria-selected="false" aria-controls="view-recruiter" tabindex="-1" data-view="recruiter">Recruiter</button>
+      <button id="tab-lab" role="tab" aria-selected="false" aria-controls="view-lab" tabindex="-1" data-view="lab">Simulation Lab</button>
     </div>
     <button class="demo-btn present" id="presentBtn" data-on="false" title="Each step waits for you. Press the right arrow, Space or your clicker to move on."><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M2 3h12v8H9.5l2 2.5h-1.9L8 11.6 6.4 13.5H4.5l2-2.5H2z"/></svg><span>Present</span></button>
     <button class="demo-btn" id="demoBtn" data-on="false"><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M4 2.5v11l9-5.5z"/></svg><span>Play demo</span></button>
@@ -406,7 +475,7 @@ body{
     <div>
       <span class="eyebrow"><i></i>FAME 6.0 · Problem Statement 2</span>
       <h1>Hiring that reads skills, <em>in any language</em>, and asks before it rejects.</h1>
-      <p>Describe your work the way you would say it. The engine maps it to the bank's role competencies, shows the evidence for every score, and sends borderline candidates a question instead of a rejection.</p>
+      <p>Describe your work the way you would say it. The prototype maps it to role competencies, shows the evidence behind each score, and asks for missing information before a recruiter decides.</p>
     </div>
     <div style="display:flex;flex-direction:column;gap:10px">
       <div class="stats">
@@ -483,10 +552,39 @@ body{
     <div class="card">
       <div class="cardhead"><div><h2>From the talent pool</h2><div class="sub">People who applied for other roles and fit this one at 50% or more. Searched before any paid channel.</div></div></div>
       <div class="pool" id="pool"></div>
+      <p class="privacy-note">Rediscovery only includes profiles that have opted in. Sample data is illustrative and remains in this browser session.</p>
+    </div>
+    <div class="card">
+      <div class="cardhead"><div><h2>Recruitment intelligence</h2><div class="sub">Live breakdown of the sample applicants for this requisition. Not bank performance data.</div></div><span class="pill p-strong">Sample analytics</span></div>
+      <div class="analytics-grid" id="analytics"></div>
+    </div>
+    <div class="card">
+      <div class="cardhead"><div><h2>Sourcing intelligence</h2><div class="sub">Suggested channels for this role archetype, designed to reduce avoidable paid sourcing.</div></div></div>
+      <div class="sourcing-grid" id="sourcing"></div>
+      <p class="privacy-note">Suggestions are illustrative plays for a pilot. Any external tie-up requires bank, legal and compliance approval.</p>
+    </div>
+    <div class="card">
+      <div class="cardhead"><div><h2>Recruiter copilot</h2><div class="sub">Ask about the current sample pipeline. Responses are rule-based demo outputs, not a live LLM.</div></div><span class="pill p-potential">Copilot preview</span></div>
+      <div class="copilot-bar"><input id="copilotQuery" type="text" placeholder="e.g. Show me candidates with FMCG sales experience"><button class="btn sm" id="copilotRun">Ask</button></div>
+      <div class="query-chips"><button class="sug" data-query="Show candidates with FMCG sales experience">FMCG sales candidates</button><button class="sug" data-query="Why is this candidate a match?">Explain selected match</button><button class="sug" data-query="Find opt-in talent pool matches">Find opt-in talent</button><button class="sug" data-query="Suggest sourcing channels for this role">Suggest sourcing</button></div>
+      <div id="copilotOutput" class="copilot-output"><span class="sub">Choose a prompt to explore the sample pipeline.</span></div>
     </div>
   </section>
 
-  <p class="foot">Hire FIRST · student prototype for IDFC FIRST Bank FAME 6.0 · sample data only</p>
+  <section id="view-lab" hidden role="tabpanel" aria-labelledby="tab-lab" tabindex="-1" class="lab-view">
+    <div class="lab-hero">
+      <div><span class="eyebrow"><i></i>Test the decision logic</span><h2>Hire FIRST Simulation Lab</h2><p>Try different candidate profiles, inspect the evidence and see how the four-bucket triage responds. These are controlled examples, not predictive hiring outcomes.</p></div>
+      <div class="lab-stamp"><b>RULE-BASED DEMO</b><span>No real candidate data</span></div>
+    </div>
+    <div class="lab-controls card">
+      <div class="field"><label for="labScenario">Candidate scenario</label><select id="labScenario" class="lab-select"></select></div>
+      <div class="field"><label for="labRole">Requisition</label><select id="labRole" class="lab-select"></select></div>
+      <div class="lab-actions"><button class="btn" id="runScenario">Run scenario</button><button class="btn ghost" id="useScenario">Use in candidate journey</button></div>
+    </div>
+    <div id="labResult" class="lab-result"></div>
+  </section>
+
+  <p class="foot">Hire FIRST · student prototype for IDFC FIRST Bank FAME 6.0 · sample data only · no live ATS connection</p>
 </main>
 
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
@@ -531,17 +629,42 @@ function matchIn(line, pats){
   return null;
 }
 function find(text, pats){ for(const l of lines(text)) if(matchIn(l,pats)) return l; return null; }
-function skillsIn(text){ const out={}; for(const k in SK){ const ev=find(text,SK[k]); if(ev) out[k]=ev; } return out; }
+function scanSkills(text){
+  const found={}, negative={}, conflicts={};
+  const negativePattern=/\b(no|not|never|without|unable|didn't|don't|doesn't|do not|does not|haven't|hasn't|cannot|can't|failed to)\b|नहीं|नही|कभी नहीं|नहीं किया|नहीं की/i;
+  for(const k in SK){
+    const positiveLines=[], negativeLines=[];
+    for(const line of lines(text)){
+      const hit=matchIn(line,SK[k]);
+      if(!hit) continue;
+      const prefix=line.slice(Math.max(0,hit.i-64),hit.i+hit.len);
+      if(negativePattern.test(prefix)) negativeLines.push(line);
+      else positiveLines.push(line);
+    }
+    if(positiveLines.length) found[k]=positiveLines[0];
+    if(negativeLines.length) negative[k]=negativeLines[0];
+    if(positiveLines.length&&negativeLines.length) conflicts[k]={positive:positiveLines[0],negative:negativeLines[0]};
+  }
+  return {found,negative,conflicts};
+}
+function skillsIn(text){ return scanSkills(text).found; }
 function assess(text, role){
-  const found = skillsIn(text); let got=0,total=0; const rows=[];
-  for(const k in role.need){ const w=role.need[k]; total+=w; if(found[k]) got+=w; rows.push({k,w,ev:found[k]||null}); }
-  const score = Math.round(100*got/total);
-  let edu = "na";
-  if(role.edu){ edu = find(text,EDU_NO) ? "fail" : find(text,EDU_OK) ? "met" : "ask"; }
-  const kwHit = role.kw.filter(k=>text.toLowerCase().includes(k)).length;
-  const bucket = edu==="fail" ? "fail" : edu==="ask" ? "uncertain" : score>=80 ? "strong" : score>=50 ? "potential" : "uncertain";
-  const gaps = rows.filter(r=>!r.ev).sort((a,b)=>b.w-a.w);
-  return {score,rows,edu,bucket,gaps,kwHit,kwAll:role.kw.length};
+  const scan=scanSkills(text), found=scan.found;
+  let got=0,total=0; const rows=[];
+  for(const k in role.need){
+    const w=role.need[k]; total+=w;
+    const conflict=!!scan.conflicts[k], ev=conflict?null:(found[k]||null);
+    if(ev) got+=w;
+    rows.push({k,w,ev,negative:scan.negative[k]||null,conflict:scan.conflicts[k]||null});
+  }
+  const score=Math.round(100*got/total);
+  let edu="na";
+  if(role.edu){ edu=find(text,EDU_NO)?"fail":find(text,EDU_OK)?"met":"ask"; }
+  const kwHit=role.kw.filter(k=>text.toLowerCase().includes(k)).length;
+  const conflictKeys=Object.keys(scan.conflicts).filter(k=>role.need[k]);
+  const bucket=edu==="fail"?"fail":(edu==="ask"||conflictKeys.length)?"uncertain":score>=80?"strong":score>=50?"potential":"uncertain";
+  const gaps=rows.filter(r=>!r.ev).sort((a,b)=>b.w-a.w);
+  return {score,rows,edu,bucket,gaps,kwHit,kwAll:role.kw.length,conflictKeys,negativeKeys:Object.keys(scan.negative)};
 }
 const BUCKET = {strong:["Strong match","Goes to the recruiter's shortlist"],potential:["Potential match","Short voice screen in the candidate's language"],uncertain:["Uncertain","One clarifying question, then human review"],fail:["Fails a mandatory criterion","Rejected, with the reason and a better-fit role"]};
 
@@ -551,12 +674,12 @@ const ASHA_VOICE = "मेरा नाम आशा है। मैं ती�
 const START_WORDS = "मैं घर-घर जाकर बीमा बेचती हूँ, टारगेट पूरा करती हूँ और मेरे ग्राहक दोबारा आते हैं";
 const SAMPLE_ANSWER = "हाँ, मैंने अपने ग्राहकों का बचत खाता खुलवाने में मदद की है और KYC के कागज़ समझाए हैं।";
 let people = [
-  {id:"asha", name:"Asha Kumari", role:"acq", cv:ASHA_CV, extra:"", decision:null, live:false, color:"#367C8E"},
-  {id:"ravi", name:"Ravi Patil", role:"acq", cv:"Ravi Patil\nFMCG distributor salesman, 4 years\nCovered 60 retail shops on a bike route in the district\nAchieved monthly sales target most months\nHelped shop owners open current accounts through a bank agent\nB.Com graduate. Marathi and Hindi", extra:"", decision:null, color:"#477D9B"},
-  {id:"sunita", name:"Sunita Rao", role:"acq", cv:"Sunita Rao\nTelecom promoter, sold new connections door to door\nTop performer incentive for 3 months\nBA graduate. Tamil and English", extra:"", decision:null, color:"#7B78A8"},
-  {id:"meena", name:"Meena Devi", role:"acq", cv:"Meena Devi\nSelf help group ki member hoon\nGaon mein mahilaon ka bachat khata khulwaya\nGroup ka hisab rakhti hoon\n10th pass", extra:"", decision:null, color:"#B0843D"},
-  {id:"karan", name:"Karan Mehta", role:"acq", cv:"Karan Mehta\nFresher, B.Com graduate\nComputer course, Excel and Tally", extra:"", decision:null, color:"#438B7A"},
-  {id:"imran", name:"Imran Shaikh", role:"coll", cv:"Imran Shaikh\nDelivery executive, 2 years, field route on a bike\nCash collection from customers every day\nUses a smartphone app and UPI\n12th pass", extra:"", decision:null, color:"#617FA8"},
+  {id:"asha", name:"Asha Kumari", role:"acq", cv:ASHA_CV, extra:"", decision:null, status:"Applied", consent:false, source:"Direct application", archetype:"Frontline high-volume", history:[], live:false, color:"#367C8E"},
+  {id:"ravi", name:"Ravi Patil", role:"acq", cv:"Ravi Patil\nFMCG distributor salesman, 4 years\nCovered 60 retail shops on a bike route in the district\nAchieved monthly sales target most months\nHelped shop owners open current accounts through a bank agent\nB.Com graduate. Marathi and Hindi", extra:"", decision:null, status:"Applied", consent:true, source:"Employee referral", archetype:"Frontline high-volume", history:[], color:"#477D9B"},
+  {id:"sunita", name:"Sunita Rao", role:"acq", cv:"Sunita Rao\nTelecom promoter, sold new connections door to door\nTop performer incentive for 3 months\nBA graduate. Tamil and English", extra:"", decision:null, status:"Applied", consent:true, source:"Local hiring drive", archetype:"Gen Z / early career", history:[], color:"#7B78A8"},
+  {id:"meena", name:"Meena Devi", role:"acq", cv:"Meena Devi\nSelf help group ki member hoon\nGaon mein mahilaon ka bachat khata khulwaya\nGroup ka hisab rakhti hoon\n10th pass", extra:"", decision:null, status:"Applied", consent:false, source:"Community outreach", archetype:"Rural / Tier 3", history:[], color:"#B0843D"},
+  {id:"karan", name:"Karan Mehta", role:"acq", cv:"Karan Mehta\nFresher, B.Com graduate\nComputer course, Excel and Tally", extra:"", decision:null, status:"Applied", consent:true, source:"Campus", archetype:"Early career", history:[], color:"#438B7A"},
+  {id:"imran", name:"Imran Shaikh", role:"coll", cv:"Imran Shaikh\nDelivery executive, 2 years, field route on a bike\nCash collection from customers every day\nUses a smartphone app and UPI\n12th pass", extra:"", decision:null, status:"Applied", consent:true, source:"Local hiring drive", archetype:"Frontline high-volume", history:[], color:"#617FA8"},
 ];
 const full = p => p.cv + (p.extra ? "\n" + p.extra : "");
 const role = id => ROLES.find(r=>r.id===id);
@@ -592,7 +715,7 @@ function confetti(){
 }
 
 // ---------- candidate view ----------
-const C = {step:1, words:START_WORDS, pick:"acq", cv:ASHA_CV, name:"Asha Kumari", rec:false};
+const C = {step:1, words:START_WORDS, pick:"acq", cv:ASHA_CV, name:"Asha Kumari", rec:false, consent:false};
 function ranked(text){ return ROLES.map(r=>({r,a:assess(text,r)})).sort((x,y)=>y.a.score-x.a.score); }
 function setStep(n){ C.step=n; [...$("stepper").children].forEach((s,i)=>s.classList.toggle("on",i<n)); $("headSub").textContent=["Find a role that fits how you work","Apply in one step, in your language","Your application, live"][n-1]; }
 
@@ -607,17 +730,21 @@ function drawPhone(){
       <div><div class="plabel">Skills we found</div><div class="skills" id="found"></div></div>
       <div><div class="plabel">Roles that fit you</div><div id="roles" style="display:flex;flex-direction:column;gap:10px"></div></div>`;
     $("words").addEventListener("input",e=>{C.words=e.target.value;updDiscover();});
-    $("mic1").onclick=()=>toast("Voice input is shown as a sample in this prototype");
+    $("mic1").onclick=()=>speechToText("words","hi-IN");
     updDiscover(true);
   } else if(C.step===2){
     const r=role(C.pick);
     el.innerHTML = `<div class="jobhead"><div class="ic"><svg viewBox="0 0 20 20" fill="currentColor"><path d="M7 3a2 2 0 0 0-2 2v1H3.5A1.5 1.5 0 0 0 2 7.5v8A1.5 1.5 0 0 0 3.5 17h13a1.5 1.5 0 0 0 1.5-1.5v-8A1.5 1.5 0 0 0 16.5 6H15V5a2 2 0 0 0-2-2H7zm6 3H7V5h6v1z"/></svg></div><div><b style="font-family:var(--display)">${r.title}</b><div class="sub" style="font-size:12px;color:var(--muted)">${r.place}</div></div></div>
       <div class="field"><label for="cname">Your name</label><input id="cname" value="${h(C.name)}"></div>
       <div class="field"><label for="ccv">Your CV, in any language</label><textarea id="ccv">${h(C.cv)}</textarea></div>
-      <button class="voice" id="voice" data-rec="false"><span class="mic" style="flex:none"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 10a2.5 2.5 0 0 0 2.5-2.5v-4a2.5 2.5 0 0 0-5 0v4A2.5 2.5 0 0 0 8 10z"/></svg></span><span class="wave">${Array.from({length:22},(_,i)=>`<i style="animation-delay:${(i%7)*.09}s"></i>`).join("")}</span><small id="vtxt">Or send a voice note</small></button>
+      <div class="upload-row"><label class="upload-btn" for="cvFile">Upload text CV (.txt)</label><input id="cvFile" type="file" accept=".txt,text/plain" hidden><span id="cvFileName">No file selected</span></div>
+      <button class="voice" id="voice" data-rec="false" type="button"><span class="mic" style="flex:none"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 10a2.5 2.5 0 0 0 2.5-2.5v-4a2.5 2.5 0 0 0-5 0v4A2.5 2.5 0 0 0 8 10z"/></svg></span><span class="wave">${Array.from({length:22},(_,i)=>`<i style="animation-delay:${(i%7)*.09}s"></i>`).join("")}</span><small id="vtxt">Dictate a voice note (browser support required)</small></button>
+      <p class="privacy-note">Speech input is handled by your browser's speech-recognition service when available. This demo does not upload or store audio.</p>
+      <label class="consent-row"><input type="checkbox" id="poolConsent" ${C.consent?"checked":""}><span><b>Yes, keep my profile for future suitable opportunities.</b><small>Optional. You can withdraw consent later. Your application can proceed without opting in.</small></span></label>
       <div class="pnav"><button class="btn soft" id="back">Back</button><button class="btn" id="submit">Submit application</button></div>
       <p class="sub" style="font-size:11.5px;color:var(--muted);text-align:center">Your profile is saved, with your consent, for future roles.</p>`;
     $("ccv").addEventListener("input",e=>{C.cv=e.target.value;traceFor(C.cv,C.pick);});
+    $("cvFile").addEventListener("change",e=>loadTextCV(e.target.files&&e.target.files[0]));
     $("voice").onclick=()=>voiceNote();
     $("back").onclick=()=>{C.step=1;drawPhone();};
     $("submit").onclick=()=>submitApp();
@@ -635,115 +762,331 @@ function updDiscover(first){
   animateRings($("roles"));
   traceFor(C.words, list[0]?list[0].r.id:"acq");
 }
-function voiceNote(){
-  const v=$("voice"); if(!v) return; v.dataset.rec="true"; $("vtxt").textContent="Listening…";
-  setTimeout(()=>{ if(!$("voice")) return; v.dataset.rec="false"; $("ccv").value=ASHA_VOICE; C.cv=ASHA_VOICE; $("vtxt").textContent="Voice note transcribed (sample)"; traceFor(C.cv,C.pick); toast("Voice note transcribed. Live speech-to-text is not part of this prototype."); }, reduce?50:1600);
+function speechToText(targetId,lang){
+  const Recognition=window.SpeechRecognition||window.webkitSpeechRecognition;
+  if(!Recognition){ toast("Speech recognition is not supported in this browser. You can type instead."); return; }
+  const target=$(targetId); if(!target) return;
+  const recognizer=new Recognition();
+  recognizer.lang=lang||"hi-IN"; recognizer.interimResults=false; recognizer.maxAlternatives=1;
+  const button=targetId==="ccv"?$("voice"):$("mic1");
+  if(button){button.disabled=true;if(targetId==="ccv") $("vtxt").textContent="Listening…";}
+  recognizer.onresult=e=>{
+    const transcript=e.results&&e.results[0]&&e.results[0][0]?e.results[0][0].transcript:"";
+    target.value=(target.value?target.value+" ":"")+transcript;
+    target.dispatchEvent(new Event("input",{bubbles:true}));
+    toast("Speech added. Please review the transcript before continuing.");
+  };
+  recognizer.onerror=e=>toast("Speech input stopped: "+(e.error||"unavailable")+". You can type instead.");
+  recognizer.onend=()=>{if(button){button.disabled=false;if(targetId==="ccv"&&$("vtxt")) $("vtxt").textContent="Dictate a voice note (browser support required)";}};
+  try{recognizer.start();}catch(e){if(button)button.disabled=false;toast("Could not start speech recognition. Please type instead.");}
+}
+function voiceNote(){ speechToText("ccv","hi-IN"); }
+function loadTextCV(file){
+  if(!file) return;
+  if(file.size>500000){toast("Please choose a text CV under 500 KB.");return;}
+  if(!/\.txt$/i.test(file.name)){toast("This prototype can read .txt CVs only. PDF/DOC parsing needs a document service.");return;}
+  const reader=new FileReader();
+  reader.onload=()=>{C.cv=String(reader.result||"");$("ccv").value=C.cv;$("cvFileName").textContent=file.name;traceFor(C.cv,C.pick);toast("Text CV loaded. Review the extracted content before submitting.");};
+  reader.onerror=()=>toast("Could not read this file. Please paste the CV text instead.");
+  reader.readAsText(file);
 }
 function submitApp(){
-  C.name=($("cname").value.trim())||"Candidate"; C.cv=$("ccv").value;
-  const me=people.find(p=>p.id==="asha"); Object.assign(me,{name:C.name,cv:C.cv,extra:"",role:C.pick,decision:null,live:true});
+  C.name=($("cname").value.trim())||"Candidate"; C.cv=$("ccv").value; C.consent=$("poolConsent").checked;
+  const me=people.find(p=>p.id==="asha");
+  Object.assign(me,{name:C.name,cv:C.cv,extra:"",role:C.pick,decision:null,status:"Applied",consent:C.consent,source:"Direct application",question:null,questionSkill:null,feedback:null,live:true,history:[{status:"Applied",note:"Application submitted"}]});
   R.role=C.pick; R.sel="asha"; R.flash="asha";
-  C.step=3; drawPhone(); drawRecruiter(); drawStats(); toast("Application submitted. Screened in under a second.");
+  C.step=3; drawPhone(); drawRecruiter(); drawStats(); toast("Application submitted. The sample engine has screened the profile.");
 }
 function drawTrack(){
   const me=people.find(p=>p.id==="asha"), r=role(me.role), a=assess(full(me),r), el=$("pbody");
-  let body="";
-  if(a.bucket==="strong"){
-    body=`<div class="okcard"><div class="big">🎉</div><b>You're shortlisted</b><p>The recruiter can see each of your skills and the line in your CV that shows it. Next: a 3-minute job preview video and an interview slot.</p></div>`;
+  const stages=["Applied","Shortlisted","Interview","Offer","Accepted","Preboarding","Joined"];
+  const rank={"Applied":0,"Clarification requested":0,"Shortlisted":1,"Interview scheduled":2,"Offer issued":3,"Offer accepted":4,"Preboarding":5,"Joined":6,"Rejected":-1};
+  const active=rank[me.status]??0;
+  const lifecycle=stages.map((s,i)=>{const done=active>i,current=active===i;return `<div class="life-step ${done?"done":current?"current":""}">${done?"✓ ": ""}${s}</div>`;}).join("");
+  let body="", statusTitle="Application received", statusText="Your application is in the sample hiring pipeline.";
+  if(me.status==="Clarification requested"){
+    statusTitle="One clarification requested";
+    statusText="The recruiter needs one more piece of evidence before deciding.";
+    const q=me.question||((me.questionSkill&&SK[me.questionSkill])?SK[me.questionSkill].q:"Please clarify one point about your experience.");
+    body=`<div class="qcard"><div class="bot">A question from the recruiter</div><p>${h(q)}</p><textarea id="ans" placeholder="Type your answer in your own words"></textarea><div class="pnav"><button class="btn sm" id="send">Send answer</button></div></div>`;
+  } else if(me.status==="Rejected"){
+    statusTitle="Application closed with feedback";
+    statusText=me.feedback||"The recruiter has shared a reason for this decision.";
+    body=`<div class="qcard"><div class="bot">Feedback, not silence</div><p>${h(statusText)}</p><span>Where possible, the recruiter may suggest another suitable role.</span></div>`;
+  } else if(me.status==="Offer issued"){
+    statusTitle="You have received an offer";
+    statusText="Review the offer details before choosing whether to accept.";
+    body=`<div class="okcard"><div class="big">✉️</div><b>Offer ready for your review</b><p>Illustrative demo offer. No real employment offer is being made.</p><button class="btn sm" id="acceptOffer">Accept sample offer</button></div>`;
+  } else if(me.status==="Offer accepted"){
+    statusTitle="Offer accepted";
+    statusText="The recruiter can now start pre-joining activities.";
+    body=`<div class="okcard"><div class="big">✓</div><b>Offer accepted in this demo</b><p>Your next step is pre-joining documentation and Day 1 readiness.</p></div>`;
+  } else if(me.status==="Preboarding"){
+    statusTitle="Preboarding in progress";
+    statusText="Complete the sample checklist to demonstrate the final joining journey.";
+    body=`<div class="qcard"><div class="bot">Preboarding checklist</div><label><input type="checkbox" id="docCheck"> Identity and education documents reviewed</label><label><input type="checkbox" id="policyCheck"> Policy and joining information acknowledged</label><label><input type="checkbox" id="buddyCheck"> Buddy / reporting contact received</label><button class="btn sm" id="completePreboarding">Complete sample checklist</button></div>`;
+  } else if(me.status==="Joined"){
+    statusTitle="Day 1 ready";
+    statusText="The sample candidate journey has reached joining.";
+    body=`<div class="okcard"><div class="big">🎉</div><b>Welcome aboard</b><p>Day 1 checklist completed in this illustrative journey.</p></div>`;
+  } else if(me.status==="Interview scheduled"){
+    statusTitle="Interview scheduled";
+    statusText=me.interview||"Your interview details will appear here.";
+    body=`<div class="qcard"><div class="bot">Your next step</div><p>${h(statusText)}</p><span>Review the role, prepare examples and contact the recruiter if you need an accommodation.</span></div>`;
+  } else if(me.status==="Shortlisted"){
+    statusTitle="Shortlisted for recruiter-led assessment";
+    statusText="Your profile has been shortlisted. The next step is interview scheduling.";
+    body=`<div class="okcard"><div class="big">✓</div><b>Shortlisted</b><p>Your skills evidence is available to the recruiter. Interview scheduling is the next step.</p></div>`;
   } else if(a.bucket==="fail"){
-    const alt=ROLES.filter(x=>x.id!==r.id&&!x.edu).map(x=>({x,s:assess(full(me),x).score})).sort((p,q)=>q.s-p.s)[0];
-    body=`<div class="qcard"><div class="bot">Feedback, not silence</div><p>This role needs Class 12 or above.</p><span style="font-size:13.5px">One thing to build: Class 12 through open schooling.</span>${alt?`<span style="font-size:13.5px">A role that fits you now: <b>${alt.x.title}</b> (${alt.s}% match). Your profile is saved for it.</span>`:""}</div>`;
+    statusTitle="Mandatory eligibility not met";
+    statusText="The sample profile appears to miss a mandatory requirement. A recruiter must validate the information and communicate the decision.";
+    body=`<div class="qcard"><div class="bot">Eligibility check</div><p>${h(statusText)}</p><span>Any confirmed decision should include the specific criterion and a review path.</span></div>`;
+  } else if(a.bucket==="strong"){
+    statusTitle="Strong match — recruiter review";
+    statusText="Your evidence meets the sample role threshold. A recruiter still makes the shortlist decision.";
+    body=`<div class="okcard"><div class="big">✓</div><b>Ready for recruiter review</b><p>Strong match is a recommendation, not an automatic shortlist or hiring decision.</p></div>`;
   } else {
-    const g=a.gaps[0], q=a.edu==="ask"?"What is the highest class or degree you have completed?":SK[g.k].q;
-    body=`<div class="qcard"><div class="bot"><span class="mark" style="width:22px;height:22px;border-radius:7px;font-size:10px">HF</span>One quick question before a decision</div><p>${q}</p><textarea id="ans" placeholder="Type or say your answer, in any language"></textarea><div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn soft sm" id="sample">Use a sample answer</button><button class="btn sm" id="send">Send answer</button></div></div>`;
+    const g=a.gaps[0], q=a.edu==="ask"?"What is the highest class or degree you have completed?":(g?SK[g.k].q:"Please clarify one relevant example.");
+    statusTitle=a.bucket==="potential"?"Potential match — additional screening":"More information needed";
+    statusText=a.bucket==="potential"?"A short screening conversation can explore the skills already identified.":"The prototype needs more evidence before a recruiter can review the profile.";
+    body=`<div class="qcard"><div class="bot">${a.bucket==="potential"?"Short screening prompt":"One quick question before a decision"}</div><p>${h(q)}</p><textarea id="ans" placeholder="Type your answer in your own words"></textarea><div class="pnav"><button class="btn sm" id="send">Send answer</button></div></div>`;
   }
   el.innerHTML=`<div class="scorecard">${ring(a.score,true)}<div style="display:flex;flex-direction:column;gap:6px;min-width:0"><b style="font-family:var(--display);font-size:16px">${h(me.name)}</b><span style="font-size:12.5px;color:var(--muted)">${r.title}</span><span class="pill p-${a.bucket}">${BUCKET[a.bucket][0]}</span></div></div>
-    <ul class="tl"><li><span class="d done">✓</span><div><b>Submitted</b><small>One step, in her own language</small></div></li>
-    <li><span class="d done">✓</span><div><b>Screened by the skills engine</b><small>${a.score}% match, with evidence for each skill</small></div></li>
-    <li><span class="d ${a.bucket==="strong"?"done":"now"}">${a.bucket==="strong"?"✓":""}</span><div><b>${a.bucket==="strong"?"Shortlisted":a.bucket==="fail"?"Closed with feedback":"Waiting for your answer"}</b><small>${a.bucket==="strong"?"Recruiter notified":a.bucket==="fail"?"Reason shared, better-fit role suggested":"Decision expected by Friday"}</small></div></li>
-    <li><span class="d"></span><div><b>Interview</b><small>Slot offered after shortlist</small></div></li></ul>
-    ${body}<div class="pnav"><button class="btn soft sm" id="again">Start again</button><button class="btn ghost sm" id="toRec">Recruiter view</button></div>`;
+    <div class="status-banner"><span class="status-dot"></span><div><b>${h(statusTitle)}</b><small>${h(statusText)}</small></div></div>
+    <div class="lifecycle">${lifecycle}</div>${body}
+    <div class="consent-manage"><div><b style="font-size:12.5px">Future-opportunity matching</b><small>${me.consent?"You have opted in to talent-pool rediscovery.":"You have not opted in. Your profile is excluded from rediscovery."}</small></div><button class="btn ghost sm" id="toggleConsent">${me.consent?"Withdraw consent":"Opt in"}</button></div>
+    <div class="pnav"><button class="btn soft sm" id="again">Start again</button><button class="btn ghost sm" id="toRec">Recruiter view</button></div>`;
   animateRings(el);
-  traceFor(full(me), me.role);
+  traceFor(full(me),me.role);
   $("again").onclick=()=>{C.step=1;drawPhone();};
   $("toRec").onclick=()=>show("recruiter");
-  const sm=$("sample"); if(sm) sm.onclick=()=>{ $("ans").value=a.edu==="ask"?"12th pass":SAMPLE_ANSWER; };
-  const sd=$("send"); if(sd) sd.onclick=()=>sendAnswer();
+  const send=$("send"); if(send) send.onclick=()=>sendAnswer();
+  const accept=$("acceptOffer"); if(accept) accept.onclick=()=>{setStatus(me,"Offer accepted","Candidate accepted the sample offer.");drawPhone();drawRecruiter();};
+  const complete=$("completePreboarding"); if(complete) complete.onclick=()=>{
+    if(!$("docCheck").checked||!$("policyCheck").checked||!$("buddyCheck").checked){toast("Complete all three sample checklist items first.");return;}
+    setStatus(me,"Joined","Sample preboarding checklist completed; Day 1 ready.");drawPhone();drawRecruiter();drawStats();
+  };
+  $("toggleConsent").onclick=()=>{me.consent=!me.consent;C.consent=me.consent;drawPhone();drawRecruiter();toast(me.consent?"Future matching enabled.":"Consent withdrawn. Profile removed from rediscovery.");};
 }
 function sendAnswer(){
-  const v=$("ans")&&$("ans").value.trim(); if(!v){ toast("Type an answer, or use the sample"); return; }
-  const me=people.find(p=>p.id==="asha"); const before=assess(full(me),role(me.role)).bucket;
-  me.extra=(me.extra?me.extra+"\n":"")+v; R.flash="asha";
-  drawPhone(); drawRecruiter(); drawStats();
-  const after=assess(full(me),role(me.role)).bucket;
-  if(after==="strong"&&before!=="strong"){ confetti(); toast("Answer read. Asha moves to Strong match."); }
+  const v=$("ans")&&$("ans").value.trim(); if(!v){toast("Please add an answer before sending.");return;}
+  const me=people.find(p=>p.id==="asha"), before=assess(full(me),role(me.role));
+  const target=me.questionSkill||(before.edu==="ask"?"__edu":before.gaps[0]?.k);
+  const after=assess(full(me)+"\n"+v,role(me.role));
+  const valid=target==="__edu"?after.edu==="met":target?!!after.rows.find(x=>x.k===target)?.ev&&!after.conflictKeys.includes(target):after.score>before.score;
+  if(!valid){toast("That answer did not yet address the requested evidence. Please add a specific example.");return;}
+  me.extra=(me.extra?me.extra+"\n":"")+v;
+  me.status="Applied";me.decision=null;me.question=null;me.questionSkill=null;me.feedback=null;
+  me.history=me.history||[];me.history.push({status:"Applied",note:"Candidate supplied clarification"});
+  R.flash="asha";drawPhone();drawRecruiter();drawStats();
+  const final=assess(full(me),role(me.role));
+  if(final.bucket==="strong"&&before.bucket!=="strong"){confetti();toast("Evidence updated. Strong match recommendation sent for recruiter review.");}
+  else toast("Clarification received. Recruiter review is next.");
 }
-function traceFor(text, rid){
-  const r=role(rid)||ROLES[0], a=assess(text,r);
-  $("said").innerHTML = text.trim()? highlight(text).replace(/\n/g,"<br>") : `<span style="color:var(--faint)">Waiting for input</span>`;
-  $("compTitle").textContent = "Competency match for " + r.title;
-  $("comp").innerHTML = a.rows.map(x=>`<div class="crow"><span class="n">${SK[x.k].label} <small>· weight ${x.w}</small></span><div class="bar"><i class="${x.ev?"":"miss"}" style="width:${Math.round(x.w/3*100)}%"></i></div><span class="s ${x.ev?"y":"a"}">${x.ev?"Found":"Ask"}</span></div>`).join("")
-    + (r.edu?`<div class="crow"><span class="n">Class 12 or above <small>· mandatory</small></span><div class="bar"><i class="${a.edu==="met"?"":"miss"}" style="width:100%"></i></div><span class="s ${a.edu==="met"?"y":"a"}">${a.edu==="met"?"Found":a.edu==="fail"?"No":"Ask"}</span></div>`:"");
-  $("pin").style.left = Math.max(3,Math.min(97,a.score))+"%";
-  $("pinv").style.transform = a.score>72 ? "translateX(-38%)" : a.score<25 ? "translateX(38%)" : "none";
-  $("pinv").textContent = a.score+"% · "+BUCKET[a.bucket][0];
+function traceFor(text,rid){
+  const r=role(rid)||ROLES[0],a=assess(text,r);
+  $("said").innerHTML=text.trim()?highlight(text).replace(/\n/g,"<br>"):`<span style="color:var(--faint)">Waiting for input</span>`;
+  $("compTitle").textContent="Competency evidence for "+r.title;
+  $("comp").innerHTML=a.rows.map(x=>{
+    const status=x.conflict?"Conflict":x.negative?"Negative":x.ev?"Found":"Ask";
+    const cls=x.conflict?"conflict":x.negative?"negative":x.ev?"positive":"missing";
+    const detail=x.conflict?`Conflicting statements: “${h(x.conflict.positive)}” / “${h(x.conflict.negative)}”`:x.negative?`Candidate states: “${h(x.negative)}”`:x.ev?`Evidence: “${h(x.ev)}”`:`No evidence yet. Ask: ${h(SK[x.k].q)}`;
+    return `<div class="crow"><span class="n">${SK[x.k].label} <small>· weight ${x.w}</small><span class="evidence-state ${cls}">${status}</span></span><div class="bar"><i class="${x.ev&&!x.conflict?"":"miss"}" style="width:${Math.round(x.w/3*100)}%"></i></div><span class="s ${x.ev&&!x.conflict?"y":"a"}">${status}</span><span class="evidence-detail">${detail}</span></div>`;
+  }).join("")+(r.edu?`<div class="crow"><span class="n">Class 12 or above <small>· mandatory</small></span><div class="bar"><i class="${a.edu==="met"?"":"miss"}" style="width:100%"></i></div><span class="s ${a.edu==="met"?"y":"a"}">${a.edu==="met"?"Found":a.edu==="fail"?"No":"Ask"}</span><span class="evidence-detail">${a.edu==="met"?"Qualification evidence found.":a.edu==="fail"?"A below-threshold qualification phrase was found.":"Qualification is not stated; ask before a decision."}</span></div>`:"");
+  $("pin").style.left=Math.max(3,Math.min(97,a.score))+"%";
+  $("pinv").style.transform=a.score>72?"translateX(-38%)":a.score<25?"translateX(38%)":"none";
+  $("pinv").textContent=a.score+"% · "+BUCKET[a.bucket][0];
 }
-
 // ---------- recruiter view ----------
 const R = {role:"acq", sel:"asha", log:[], flash:null};
+const SOURCING = {
+  acq:[
+    ["Local retail & FMCG talent","Reach people with customer acquisition, outlet coverage and target ownership.","LOW-COST / TRANSFERABLE"],
+    ["Employee and alumni referrals","Use structured referrals from frontline colleagues; reward only after joining and retention gates.","REFERRAL"],
+    ["District hiring days","Run language-first hiring events with realistic role previews and transparent eligibility checks.","LOCAL ACTIVATION"]
+  ],
+  arm:[
+    ["Local colleges and institutes","Build district-level pipelines for relationship, field and community-facing skills.","CAMPUS / LOCAL"],
+    ["Community information sessions","Use open, accessible sessions to explain the role and minimum criteria without collecting profiles by default.","COMMUNITY"],
+    ["Opt-in talent rediscovery","Search previously interested applicants who explicitly consented to future matching.","OWNED TALENT"]
+  ],
+  teller:[
+    ["Campus and vocational institutes","Target commerce, accounting and digital-literacy learners with role-relevant assessments.","CAMPUS"],
+    ["Local walk-in drives","Offer clear job previews and accessible application support at branch catchments.","LOCAL ACTIVATION"],
+    ["Employee referrals","Reach candidates through branch staff networks with consistent evaluation standards.","REFERRAL"]
+  ],
+  coll:[
+    ["Last-mile and collections-adjacent talent","Reach delivery, field service and payment-handling workers with transferable field experience.","TRANSFERABLE"],
+    ["Local hiring events","Make eligibility, travel expectations and safety requirements clear before application.","LOCAL ACTIVATION"],
+    ["Opt-in talent rediscovery","Re-engage previous applicants only where a valid future-opportunity opt-in exists.","OWNED TALENT"]
+  ]
+};
+function setStatus(p,status,note){
+  p.status=status;p.decision=status;p.history=p.history||[];p.history.push({status,note:note||status});
+}
+function recruiterActions(p,a){
+  if(p.status==="Applied"||p.status==="Clarification requested"){
+    return `<button class="btn sm" data-act="Shortlisted">Shortlist</button><button class="btn ghost sm" data-act="Question sent">Ask to clarify</button><button class="btn soft sm" data-act="Rejected, reason shared">Reject with reason</button>`;
+  }
+  if(p.status==="Shortlisted") return `<button class="btn sm" data-act="Schedule interview">Schedule interview</button>`;
+  if(p.status==="Interview scheduled") return `<button class="btn sm" data-act="Issue offer">Issue sample offer</button>`;
+  if(p.status==="Offer accepted") return `<button class="btn sm" data-act="Start preboarding">Start preboarding</button>`;
+  if(p.status==="Preboarding") return `<button class="btn sm" data-act="Mark joined">Mark Day 1 ready</button>`;
+  return `<span class="privacy-note">Next action is with the candidate or the completed journey.</span>`;
+}
+function applyRecruiterAction(p,action,a){
+  if(action==="Shortlisted"){setStatus(p,"Shortlisted","Recruiter shortlisted the candidate for assessment.");}
+  else if(action==="Question sent"){
+    const gap=a.gaps[0], skill=a.edu==="ask"?"__edu":(gap?gap.k:null);
+    p.questionSkill=skill==="__edu"?null:skill;
+    p.question=skill==="__edu"?"What is the highest class or degree you have completed?":(skill?SK[skill].q:"Please share one specific example relevant to this role.");
+    setStatus(p,"Clarification requested","Recruiter requested one clarifying answer.");
+  } else if(action==="Rejected, reason shared"){
+    p.feedback=a.edu==="fail"?"The profile appears not to meet the stated minimum education criterion. Please review the role requirements and consider other suitable opportunities.":"The recruiter did not progress this application for the current role. This is a sample decision; contact the hiring team for role-specific feedback.";
+    p.history=p.history||[];setStatus(p,"Rejected","Reason shared with candidate.");
+  } else if(action==="Schedule interview"){
+    p.interview="Interview scheduled: 26 November 2026, 11:00 AM (illustrative demo slot).";
+    setStatus(p,"Interview scheduled","Recruiter scheduled an illustrative interview.");
+  } else if(action==="Issue offer"){
+    setStatus(p,"Offer issued","Recruiter issued an illustrative sample offer.");
+  } else if(action==="Start preboarding"){
+    setStatus(p,"Preboarding","Candidate accepted the illustrative offer; preboarding opened.");
+  } else if(action==="Mark joined"){
+    setStatus(p,"Joined","Sample candidate reached Day 1 readiness.");
+  }
+  R.log.push(`${p.name}: ${action.toLowerCase()}`);
+}
+function renderAnalytics(mine){
+  const counts={strong:0,potential:0,uncertain:0,fail:0};
+  const sources={};
+  mine.forEach(({p,a})=>{counts[a.bucket]=(counts[a.bucket]||0)+1;sources[p.source||"Unspecified"]=(sources[p.source||"Unspecified"]||0)+1;});
+  const max=Math.max(1,...Object.values(sources));
+  const triage=Object.entries(counts).map(([k,v])=>`<div class="analytics-row"><span>${BUCKET[k][0]}</span><div class="analytics-track"><i style="width:${mine.length?v/mine.length*100:0}%"></i></div><b>${v}</b></div>`).join("");
+  const sourceRows=Object.entries(sources).map(([k,v])=>`<div class="analytics-row"><span>${h(k)}</span><div class="analytics-track"><i style="width:${v/max*100}%"></i></div><b>${v}</b></div>`).join("")||`<div class="empty">No sample applicants for this role.</div>`;
+  $("analytics").innerHTML=`<div class="analytics-box"><h3>Four-bucket distribution</h3>${triage}<p class="privacy-note">Counts reflect the sample profiles currently loaded for this role.</p></div><div class="analytics-box"><h3>Applicant source mix</h3>${sourceRows}<p class="privacy-note">Source labels are illustrative sample attributes.</p></div>`;
+}
+function renderSourcing(r){
+  $("sourcing").innerHTML=(SOURCING[r.id]||[]).map(([title,copy,type])=>`<div class="source-card"><span class="source-type">${h(type)}</span><b>${h(title)}</b><p>${h(copy)}</p></div>`).join("");
+}
+function runCopilot(query){
+  const q=(query||$("copilotQuery").value||"").trim().toLowerCase(),r=role(R.role);
+  if(!q){$("copilotOutput").innerHTML=`<span class="sub">Enter a question or choose a suggested prompt.</span>`;return;}
+  let title="",items=[];
+  if(q.includes("why")||q.includes("match")||q.includes("evidence")){
+    const p=people.find(x=>x.id===R.sel)||people.find(x=>x.role===R.role),a=p?assess(full(p),r):null;
+    title=p?`Evidence review for ${h(p.name)}`:"No candidate is selected";
+    items=p?a.rows.map(x=>({name:SK[x.k].label,detail:x.conflict?"Conflicting evidence":x.ev?"Evidence found":x.negative?"Negative statement":"Missing evidence"})):[];
+  } else if(q.includes("fmcg")||q.includes("sales")){
+    const matched=people.filter(p=>/fmcg|distributor|sales|telecom|retail/i.test(full(p)));
+    title="Candidates with transferable sales / distribution signals";
+    items=matched.map(p=>({name:p.name,detail:`${p.source} · ${role(p.role).title} · ${p.consent?"future matching opt-in":"not opted in"}`}));
+  } else if(q.includes("talent")||q.includes("pool")||q.includes("rediscover")){
+    const matches=people.filter(p=>p.role!==R.role&&p.consent).map(p=>({p,a:assess(full(p),r)})).filter(x=>x.a.score>=50&&x.a.bucket!=="fail").sort((x,y)=>y.a.score-x.a.score);
+    title="Opt-in talent-pool matches for "+r.title;
+    items=matches.map(x=>({name:x.p.name,detail:`${x.a.score}% evidence score · ${x.p.source}`}));
+  } else if(q.includes("sourc")){
+    title="Suggested sourcing plays for "+r.title;
+    items=(SOURCING[r.id]||[]).map(x=>({name:x[0],detail:x[1]}));
+  } else {
+    title="Current requisition summary";
+    const mine=people.filter(p=>p.role===R.role).map(p=>({p,a:assess(full(p),r)}));
+    items=mine.map(x=>({name:x.p.name,detail:`${x.a.score}% · ${BUCKET[x.a.bucket][0]} · ${x.p.status}`}));
+  }
+  $("copilotOutput").innerHTML=`<b>${title}</b><div class="copilot-list">${items.length?items.map(x=>`<div class="copilot-item"><b>${h(x.name)}</b><span>${h(x.detail)}</span></div>`).join(""):`<div class="empty">No matching sample records. Try a different question.</div>`}</div><p class="privacy-note">Rule-based response from this browser's sample records. No external model or bank system was queried.</p>`;
+}
 function drawRecruiter(){
   const sel=$("roleSel");
-  if(!sel.options.length){ sel.innerHTML=ROLES.map(r=>`<option value="${r.id}">${r.title}</option>`).join(""); sel.onchange=()=>{R.role=sel.value; const f=people.find(p=>p.role===R.role); R.sel=f?f.id:null; drawRecruiter();}; }
-  sel.value=R.role; const r=role(R.role);
-  $("needs").innerHTML = Object.keys(r.need).map(k=>`<span class="need">${SK[k].label}<b>×${r.need[k]}</b></span>`).join("") + (r.edu?`<span class="need m">Mandatory: Class 12 or above</span>`:"");
+  if(!sel.options.length){sel.innerHTML=ROLES.map(r=>`<option value="${r.id}">${r.title}</option>`).join("");sel.onchange=()=>{R.role=sel.value;const f=people.find(p=>p.role===R.role);R.sel=f?f.id:null;drawRecruiter();};}
+  sel.value=R.role;const r=role(R.role);
+  $("needs").innerHTML=Object.keys(r.need).map(k=>`<span class="need">${SK[k].label}<b>×${r.need[k]}</b></span>`).join("")+(r.edu?`<span class="need m">Mandatory: Class 12 or above</span>`:"");
   const mine=people.filter(p=>p.role===R.role).map(p=>({p,a:assess(full(p),r)}));
-  const kwRej=mine.filter(x=>x.a.kwHit===0).length, rescued=mine.filter(x=>x.a.kwHit===0&&(x.a.bucket==="strong"||x.a.bucket==="potential")).length;
-  $("kpis").innerHTML = `<div class="kpi"><span class="v">${mine.length}</span><span class="l">applicants for this role</span></div>
-    <div class="kpi"><span class="v">${mine.filter(x=>x.a.bucket==="strong").length}</span><span class="l">ready to shortlist</span></div>
-    <div class="kpi"><span class="v">${kwRej}</span><span class="l">a keyword filter would reject</span></div>
-    <div class="kpi hl"><span class="v">${rescued}</span><span class="l">of those kept in play by the engine</span></div>`;
+  const kwRej=mine.filter(x=>x.a.kwHit===0).length,rescued=mine.filter(x=>x.a.kwHit===0&&(x.a.bucket==="strong"||x.a.bucket==="potential"||x.a.bucket==="uncertain")).length;
+  $("kpis").innerHTML=`<div class="kpi"><span class="v">${mine.length}</span><span class="l">sample applicants for this role</span></div>
+    <div class="kpi"><span class="v">${mine.filter(x=>x.a.bucket==="strong").length}</span><span class="l">strong evidence recommendations</span></div>
+    <div class="kpi"><span class="v">${kwRej}</span><span class="l">zero exact title-keyword hits</span></div>
+    <div class="kpi hl"><span class="v">${rescued}</span><span class="l">kept in review despite zero title-keyword hits</span></div>`;
   $("board").innerHTML=["strong","potential","uncertain","fail"].map(b=>{
     const list=mine.filter(x=>x.a.bucket===b).sort((x,y)=>y.a.score-x.a.score);
     return `<div class="col"><div class="colh"><h3><span class="dot ${b}"></span>${BUCKET[b][0]}</h3><span class="cnt">${list.length}</span></div><div class="hint">${BUCKET[b][1]}</div>
-      ${list.map(({p,a})=>`<button class="pcard${R.flash===p.id?" flash":""}" data-p="${p.id}" aria-pressed="${p.id===R.sel}"><span class="avatar" style="background:${p.color}">${initials(p.name)}</span><span style="min-width:0"><b>${h(p.name)}${p.live?'<span class="badge-new">NEW</span>':""}</b><small>${p.decision?h(p.decision):"Awaiting review"}</small></span><span class="sc">${a.score}%</span><span class="minibar"><i style="width:${a.score}%;background:${b==="strong"?"var(--good)":b==="potential"?"var(--brand)":b==="uncertain"?"var(--warn)":"var(--bad)"}"></i></span></button>`).join("") || `<div class="empty">No one here</div>`}</div>`;
+      ${list.map(({p,a})=>`<button class="pcard${R.flash===p.id?" flash":""}" data-p="${p.id}" aria-pressed="${p.id===R.sel}"><span class="avatar" style="background:${p.color}">${initials(p.name)}</span><span style="min-width:0"><b>${h(p.name)}${p.live?'<span class="badge-new">NEW</span>':""}</b><small>${h(p.status||"Applied")}${p.consent?" · opt-in":""}</small></span><span class="sc">${a.score}%</span><span class="minibar"><i style="width:${a.score}%;background:${b==="strong"?"var(--good)":b==="potential"?"var(--brand)":b==="uncertain"?"var(--warn)":"var(--bad)"}"></i></span></button>`).join("")||`<div class="empty">No one here</div>`}</div>`;
   }).join("");
   R.flash=null;
   $("board").querySelectorAll(".pcard").forEach(c=>c.onclick=()=>{R.sel=c.dataset.p;drawRecruiter();});
-  const cur=mine.find(x=>x.p.id===R.sel)||mine[0], d=$("detail");
-  if(!cur){ d.innerHTML=`<div class="empty">No applicants for this role yet</div>`; }
+  const cur=mine.find(x=>x.p.id===R.sel)||mine[0],d=$("detail");
+  if(!cur){d.innerHTML=`<div class="empty">No applicants for this role yet</div>`;}
   else{
     const {p,a}=cur;
     d.innerHTML=`<div class="work"><div style="display:flex;flex-direction:column;gap:12px;min-width:0">
-        <div class="who"><span class="avatar" style="background:${p.color}">${initials(p.name)}</span><div><h2>${h(p.name)}</h2><span style="font-size:12.5px;color:var(--muted)">Applied for ${r.title}</span></div></div>
-        <div class="plabel" style="margin:0">CV, with evidence highlighted</div>
-        <div class="cv">${highlight(full(p))}</div></div>
+      <div class="who"><span class="avatar" style="background:${p.color}">${initials(p.name)}</span><div><h2>${h(p.name)}</h2><span style="font-size:12.5px;color:var(--muted)">Applied for ${r.title}</span></div></div>
+      <div class="plabel" style="margin:0">CV, with evidence highlighted</div><div class="cv">${highlight(full(p))}</div>
+      <div class="privacy-note">Source: <b>${h(p.source||"Unspecified")}</b> · Archetype: <b>${h(p.archetype||"Not tagged")}</b></div>
+      <div class="consent-manage"><div><b style="font-size:12px">Talent-pool consent</b><small>${p.consent?"Opted in to future matching":"Not opted in — excluded from rediscovery"}</small></div><span class="pill ${p.consent?"p-strong":"p-uncertain"}">${p.consent?"Opt-in":"No opt-in"}</span></div>
+      </div>
       <div style="display:flex;flex-direction:column;gap:14px;min-width:0">
-        <div class="vs"><div class="old"><span class="x">${a.kwHit===0?"✕":"✓"}</span><div><small>Keyword filter</small><b>${a.kwHit} of ${a.kwAll} keywords</b><span class="d">${a.kwHit===0?"Rejected in seconds, no reason given":"Passes on keywords alone"}</span></div></div>
-          <div class="new">${ring(a.score)}<div><small>Hire FIRST engine</small><b>${BUCKET[a.bucket][0]}</b><span class="d">${BUCKET[a.bucket][1]}</span></div></div></div>
-        <div class="ev">${a.rows.map(x=>`<div class="evrow"><div class="k"><b>${SK[x.k].label}</b><span class="wt">Weight ${x.w} of ${Object.values(r.need).reduce((s,v)=>s+v,0)}</span></div><div class="q ${x.ev?"y":"a"}">${x.ev?h(x.ev):"<b>No evidence yet.</b> Engine will ask: "+h(SK[x.k].q)}</div></div>`).join("")}
-          ${r.edu?`<div class="evrow"><div class="k"><b>Class 12 or above</b><span class="wt">Mandatory</span></div><div class="q ${a.edu==="met"||a.edu==="fail"?"y":"a"}">${a.edu==="ask"?"<b>Not stated.</b> Ask before deciding.":h(find(full(p),a.edu==="fail"?EDU_NO:EDU_OK)||"")}</div></div>`:""}</div>
-        <div class="acts"><button class="btn sm" data-act="Shortlisted">Shortlist</button><button class="btn ghost sm" data-act="Question sent">Send a clarifying question</button><button class="btn soft sm" data-act="Rejected, reason shared">Reject with a reason</button></div>
+        <div class="vs"><div class="old"><span class="x">${a.kwHit===0?"✕":"✓"}</span><div><small>Exact title-keyword filter</small><b>${a.kwHit} of ${a.kwAll} phrases</b><span class="d">${a.kwHit===0?"No exact role-title phrase found":"One or more exact phrases found"}</span></div></div>
+          <div class="new">${ring(a.score)}<div><small>Hire FIRST evidence score</small><b>${BUCKET[a.bucket][0]}</b><span class="d">${BUCKET[a.bucket][1]}</span></div></div></div>
+        <div class="ev">${a.rows.map(x=>{const state=x.conflict?"Conflicting evidence":x.negative?"Negative statement":x.ev?"Evidence found":"No evidence yet";const quote=x.conflict?`Positive: ${x.conflict.positive} / Negative: ${x.conflict.negative}`:x.ev||x.negative||("Engine question: "+SK[x.k].q);return `<div class="evrow"><div class="k"><b>${SK[x.k].label}</b><span class="wt">Weight ${x.w} of ${Object.values(r.need).reduce((s,v)=>s+v,0)} · ${state}</span></div><div class="q ${x.ev&&!x.conflict?"y":"a"}">${h(quote)}</div></div>`;}).join("")}
+          ${r.edu?`<div class="evrow"><div class="k"><b>Class 12 or above</b><span class="wt">Mandatory</span></div><div class="q ${a.edu==="met"?"y":"a"}">${a.edu==="ask"?"Not stated — ask before deciding.":a.edu==="fail"?"Below-threshold qualification phrase found.":"Qualification phrase found; verify documents before offer."}</div></div>`:""}</div>
+        <div class="acts">${recruiterActions(p,a)}</div>
         ${R.log.length?`<ul class="log">${R.log.slice(-3).reverse().map(l=>`<li>${h(l)}</li>`).join("")}</ul>`:""}
       </div></div>`;
     animateRings(d);
-    d.querySelectorAll("[data-act]").forEach(b=>b.onclick=()=>{ p.decision=b.dataset.act; R.log.push(`${p.name}: ${b.dataset.act.toLowerCase()}`); toast(`${p.name}: ${b.dataset.act.toLowerCase()}`); drawRecruiter(); });
+    d.querySelectorAll("[data-act]").forEach(b=>b.onclick=()=>{applyRecruiterAction(p,b.dataset.act,a);toast(`${p.name}: ${b.dataset.act.toLowerCase()}`);drawPhone();drawRecruiter();drawStats();});
   }
-  const pool=people.filter(p=>p.role!==R.role).map(p=>({p,a:assess(full(p),r)})).filter(x=>x.a.score>=50&&x.a.bucket!=="fail").sort((x,y)=>y.a.score-x.a.score);
-  $("pool").innerHTML = pool.length ? pool.map(({p,a})=>`<div class="poolc">${ring(a.score)}<div style="min-width:0"><b>${h(p.name)}</b><small>Applied for ${role(p.role).title}</small></div></div>`).join("") : `<div class="empty" style="flex:1">Nobody in the pool fits this role at 50% or more yet</div>`;
+  const pool=people.filter(p=>p.role!==R.role&&p.consent).map(p=>({p,a:assess(full(p),r)})).filter(x=>x.a.score>=50&&x.a.bucket!=="fail").sort((x,y)=>y.a.score-x.a.score);
+  $("pool").innerHTML=pool.length?pool.map(({p,a})=>`<div class="poolc">${ring(a.score)}<div style="min-width:0"><b>${h(p.name)}</b><small>${role(p.role).title} · ${h(p.source)}</small></div></div>`).join(""):`<div class="empty" style="flex:1">No opted-in profiles currently fit this role. Candidates must opt in before rediscovery.</div>`;
   animateRings($("pool"));
+  renderAnalytics(mine);renderSourcing(r);
 }
 function drawStats(){
   const all=people.map(p=>({p,a:assess(full(p),role(p.role))}));
-  countTo($("stApplicants"),all.length); countTo($("stSilent"),0); countTo($("stKw"),all.filter(x=>x.a.kwHit===0).length);
+  const silent=all.filter(x=>x.p.status==="Rejected"&&!x.p.feedback).length;
+  countTo($("stApplicants"),all.length);countTo($("stSilent"),silent);countTo($("stKw"),all.filter(x=>x.a.kwHit===0).length);
 }
 function countTo(el,n){ const s=+el.textContent||0; if(reduce||s===n){el.textContent=n;return;} const t0=performance.now(); const f=t=>{const k=Math.min(1,(t-t0)/600); el.textContent=Math.round(s+(n-s)*k); if(k<1) requestAnimationFrame(f);}; requestAnimationFrame(f); }
 
+
+const LAB_SCENARIOS=[
+  {id:"asha",name:"Asha — transferable insurance sales",candidate:"Asha Kumari",role:"acq",cv:ASHA_CV,words:START_WORDS,expected:"Potential",why:"Transferable acquisition, target and relationship evidence is visible. Banking-product and local-market evidence still need clarification."},
+  {id:"ravi",name:"Ravi — FMCG distributor",candidate:"Ravi Patil",role:"acq",cv:people.find(p=>p.id==="ravi").cv,words:"I sold FMCG products to 60 retail shops, managed monthly targets and helped shop owners with current accounts. B.Com graduate.",expected:"Strong / verify",why:"The profile demonstrates transferable distribution, outlet coverage and target ownership. Documentary checks and a recruiter decision remain necessary."},
+  {id:"negation",name:"Contradiction — target achievement",candidate:"Test Candidate",role:"acq",cv:"Insurance salesperson, 3 years. I sell policies door to door and meet my monthly sales targets. I have never met my targets. 12th pass.",words:"I sell insurance door to door, but I have never met my monthly targets.",expected:"Uncertain",why:"Positive and negative statements appear for the same competency. The prototype withholds credit for the conflicted signal and flags human review."},
+  {id:"missing",name:"Missing mandatory education evidence",candidate:"Test Candidate",role:"acq",cv:"Field sales representative. Sold policies door to door, achieved targets, maintained repeat customer relationships and explained KYC.",words:"I sell policies door to door and achieve my targets.",expected:"Uncertain",why:"The skills score may be high, but the mandatory qualification is not stated. The system asks rather than assuming eligibility."},
+  {id:"fail",name:"Confirmed mandatory qualification gap",candidate:"Test Candidate",role:"acq",cv:"Insurance salesperson, 3 years. Sold policies door to door, achieved targets, built repeat customer relationships. 10th pass.",words:"I have sales experience and passed Class 10.",expected:"Fails mandatory criterion",why:"A below-threshold qualification phrase is explicitly present. A real process must verify the criterion and share the specific reason."},
+  {id:"rural",name:"Meena — rural community experience",candidate:"Meena Devi",role:"arm",cv:"Self-help group member. Gaon mein mahilaon ka bachat khata khulwaya. Group ka hisab rakhti hoon. 10th pass.",words:"Gaon mein mahilaon ka bachat khata khulwaya aur group ka hisab rakha.",expected:"Uncertain / criterion review",why:"Community and local context can be relevant, but the sample profile does not meet the stated Class 12 mandatory requirement for this role."}
+];
+function selectedScenario(){return LAB_SCENARIOS.find(x=>x.id===$("labScenario").value)||LAB_SCENARIOS[0];}
+function drawLab(){
+  if(!$("labScenario"))return;
+  if(!$("labScenario").options.length){
+    $("labScenario").innerHTML=LAB_SCENARIOS.map(x=>`<option value="${x.id}">${h(x.name)}</option>`).join("");
+    $("labRole").innerHTML=ROLES.map(x=>`<option value="${x.id}">${h(x.title)}</option>`).join("");
+    $("labScenario").onchange=()=>{const sc=selectedScenario();$("labRole").value=sc.role;renderLabScenario();};
+    $("labRole").onchange=()=>renderLabScenario();
+    $("runScenario").onclick=renderLabScenario;
+    $("useScenario").onclick=()=>{
+      const sc=selectedScenario();C.name=sc.candidate;C.cv=sc.cv;C.words=sc.words;C.pick=$("labRole").value;C.step=1;C.consent=false;
+      show("candidate");drawPhone();toast("Scenario loaded into the candidate journey. Review before applying.");
+    };
+    $("labRole").value=LAB_SCENARIOS[0].role;
+  }
+  renderLabScenario();
+}
+function renderLabScenario(){
+  const sc=selectedScenario(),r=role($("labRole").value||sc.role),a=assess(sc.cv,r);
+  $("labResult").innerHTML=`<div class="lab-panel"><h3>Candidate assessment</h3><div class="lab-score"><strong>${a.score}%</strong><div><span class="pill p-${a.bucket}">${BUCKET[a.bucket][0]}</span><small>Weighted competency-evidence score, not a hiring probability</small></div></div>
+    <div class="lab-reason"><b>Scenario expectation:</b> ${h(sc.expected)}<br>${h(sc.why)}</div>
+    <p class="lab-note">Selected requisition: <b>${h(r.title)}</b> · Mandatory qualification: ${r.edu?"Class 12 or above":"None configured in this sample role"}.</p></div>
+    <div class="lab-panel"><h3>Evidence by competency</h3><div class="lab-evidence">${a.rows.map(x=>{const state=x.conflict?"Conflict":x.negative?"Negative":x.ev?"Found":"Missing";const detail=x.conflict?`Positive and negative statements conflict.`:x.negative?x.negative:x.ev?x.ev:SK[x.k].q;return `<div class="lab-evidence-row"><div><b>${SK[x.k].label}</b><small>${h(detail)}</small></div><span class="evidence-state ${x.conflict?"conflict":x.negative?"negative":x.ev?"positive":"missing"}">${state}</span></div>`;}).join("")}
+    ${r.edu?`<div class="lab-evidence-row"><div><b>Class 12 or above</b><small>${a.edu==="met"?"Qualification phrase found; document verification still required.":a.edu==="fail"?"Below-threshold phrase found.":"Qualification not stated."}</small></div><span class="evidence-state ${a.edu==="met"?"positive":a.edu==="fail"?"negative":"missing"}">${a.edu==="met"?"Found":a.edu==="fail"?"Fail":"Ask"}</span></div>`:""}</div>
+    <p class="lab-note">Prototype uses a deterministic multilingual phrase dictionary and explicit triage rules. It does not use a trained model, infer performance, or make hiring decisions.</p></div>`;
+}
+
 // ---------- views ----------
 function show(v){
-  if(v!=="recruiter") v="candidate";
-  $("view-candidate").hidden=v!=="candidate"; $("view-recruiter").hidden=v!=="recruiter";
-  document.querySelectorAll(".seg button").forEach(b=>{ const selected=b.dataset.view===v; b.setAttribute("aria-selected",String(selected)); b.tabIndex=selected?0:-1; });
-  if(location.hash.slice(1)!==v){ try{history.replaceState(null,"","#"+v);}catch(e){} }
+  if(!["recruiter","lab"].includes(v))v="candidate";
+  $("view-candidate").hidden=v!=="candidate";$("view-recruiter").hidden=v!=="recruiter";$("view-lab").hidden=v!=="lab";
+  document.querySelectorAll(".seg button").forEach(b=>{const selected=b.dataset.view===v;b.setAttribute("aria-selected",String(selected));b.tabIndex=selected?0:-1;});
+  if(location.hash.slice(1)!==v){try{history.replaceState(null,"","#"+v);}catch(e){}}
 }
 document.querySelectorAll(".seg button").forEach(b=>{
   b.onclick=()=>show(b.dataset.view);
@@ -756,6 +1099,11 @@ document.querySelectorAll(".seg button").forEach(b=>{
   });
 });
 window.addEventListener("hashchange",()=>show(location.hash.slice(1)));
+$("copilotRun").onclick=()=>runCopilot();
+$("copilotQuery").addEventListener("keydown",e=>{if(e.key==="Enter")runCopilot();});
+document.addEventListener("click",e=>{
+  const q=e.target.closest("[data-query]");if(q){$("copilotQuery").value=q.dataset.query;runCopilot(q.dataset.query);}
+});
 $("pbody").addEventListener("click",e=>{
   const w=e.target.closest("[data-words]"); if(w){ C.words=w.dataset.words; $("words").value=C.words; updDiscover(); return; }
   const a=e.target.closest("[data-apply]"); if(a){ C.pick=a.dataset.apply; C.step=2; drawPhone(); }
@@ -774,9 +1122,10 @@ const wait=ms=>new Promise((res,rej)=>{const t=D.tok; setTimeout(()=>D.on&&t===D
 function cap(i,n,t){ $("caption").hidden=false; $("capN").textContent=i+" / "+n; $("capT").textContent=t; $("capBar").style.width=(i/n*100)+"%"; }
 async function typeInto(el,text,speed){ el.value=""; el.focus({preventScroll:true}); for(const ch of Array.from(text)){ await wait(speed); el.value+=ch; el.dispatchEvent(new Event("input",{bubbles:true})); } el.blur(); }
 function resetAll(){
-  const me=people.find(p=>p.id==="asha"); Object.assign(me,{name:"Asha Kumari",cv:ASHA_CV,extra:"",role:"acq",decision:null,live:false});
-  people.forEach(p=>p.decision=null); R.log=[]; R.role="acq"; R.sel="asha";
-  Object.assign(C,{step:1,words:"",pick:"acq",cv:ASHA_CV,name:"Asha Kumari"});
+  const me=people.find(p=>p.id==="asha");Object.assign(me,{name:"Asha Kumari",cv:ASHA_CV,extra:"",role:"acq",decision:null,status:"Applied",consent:false,source:"Direct application",question:null,questionSkill:null,feedback:null,history:[],live:false});
+  people.forEach(p=>{p.decision=null;if(p.status==="Rejected"||p.status==="Shortlisted"||p.status==="Interview scheduled"||p.status==="Offer issued"||p.status==="Offer accepted"||p.status==="Preboarding"||p.status==="Joined"||p.status==="Clarification requested")p.status="Applied";});
+  R.log=[];R.role="acq";R.sel="asha";
+  Object.assign(C,{step:1,words:"",pick:"acq",cv:ASHA_CV,name:"Asha Kumari",consent:false});
 }
 async function runDemo(manual){
   D.on=true; D.tok++; D.manual=!!manual; $("presentHelp").hidden=!manual; $("capStop").hidden=!manual; const btn=$(manual?"presentBtn":"demoBtn"); btn.dataset.on="true"; btn.querySelector("span").textContent="Stop"; $(manual?"demoBtn":"presentBtn").hidden=true;
@@ -808,7 +1157,7 @@ function stopDemo(){ D.on=false; D.tok++; D.next=null; $("caption").hidden=true;
 $("demoBtn").onclick=()=>D.on?stopDemo():runDemo(false);
 $("presentBtn").onclick=()=>D.on?stopDemo():runDemo(true);
 
-drawPhone(); drawRecruiter(); drawStats(); show(location.hash.slice(1)||"candidate");
+drawPhone();drawRecruiter();drawStats();drawLab();show(location.hash.slice(1)||"candidate");
 </script>
 </body>
 </html>
