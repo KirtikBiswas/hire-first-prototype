@@ -464,6 +464,9 @@ body{
 .prep-pack ol{padding-left:20px;margin:10px 0;display:grid;gap:7px;font-size:12.5px}
 .source-card.selected{border-color:var(--brand-2);background:linear-gradient(150deg,var(--good-soft),var(--surface));box-shadow:0 0 0 1px color-mix(in srgb,var(--brand-2) 18%,transparent),var(--shadow)}
 .source-card p strong{color:var(--fg)}
+
+.lab-run-status{padding:10px 13px;border:1px solid var(--line);border-radius:10px;background:var(--good-soft);color:var(--fg);font-size:12px;line-height:1.45}
+#runScenario:disabled{opacity:.65;cursor:wait;transform:none}
 </style>
 </head>
 <body>
@@ -591,9 +594,10 @@ body{
     <div class="lab-controls card">
       <div class="field"><label for="labScenario">Candidate scenario</label><select id="labScenario" class="lab-select"></select></div>
       <div class="field"><label for="labRole">Requisition</label><select id="labRole" class="lab-select"></select></div>
-      <div class="lab-actions"><button class="btn" id="runScenario">Run scenario</button><button class="btn ghost" id="useScenario">Use in candidate journey</button></div>
+      <div class="lab-actions"><button class="btn" id="runScenario" type="button">Run scenario</button><button class="btn ghost" id="useScenario" type="button">Use in candidate journey</button></div>
     </div>
-    <div id="labResult" class="lab-result"></div>
+    <div id="labRunStatus" class="lab-run-status" role="status" aria-live="polite">Preview loaded. Choose a candidate and role, then click Run scenario.</div>
+    <div id="labResult" class="lab-result" aria-live="polite"></div>
   </section>
 
   <p class="foot">Hire FIRST · student prototype for IDFC FIRST Bank FAME 6.0 · sample data only · no live ATS connection</p>
@@ -1082,21 +1086,70 @@ const LAB_SCENARIOS=[
   {id:"rural",name:"Meena — rural community experience",candidate:"Meena Devi",role:"arm",cv:"Self-help group member. Gaon mein mahilaon ka bachat khata khulwaya. Group ka hisab rakhti hoon. 10th pass.",words:"Gaon mein mahilaon ka bachat khata khulwaya aur group ka hisab rakha.",expected:"Uncertain / criterion review",why:"Community and local context can be relevant, but the sample profile does not meet the stated Class 12 mandatory requirement for this role."}
 ];
 function selectedScenario(){return LAB_SCENARIOS.find(x=>x.id===$("labScenario").value)||LAB_SCENARIOS[0];}
+let LAB_RUN_COUNT=0;
+let LAB_LAST_SIGNATURE="";
 function drawLab(){
-  if(!$("labScenario"))return;
+  if(!$("labScenario")||!$("runScenario"))return;
   if(!$("labScenario").options.length){
     $("labScenario").innerHTML=LAB_SCENARIOS.map(x=>`<option value="${x.id}">${h(x.name)}</option>`).join("");
+  }
+  if(!$("labRole").options.length){
     $("labRole").innerHTML=ROLES.map(x=>`<option value="${x.id}">${h(x.title)}</option>`).join("");
-    $("labScenario").onchange=()=>{const sc=selectedScenario();$("labRole").value=sc.role;renderLabScenario();};
-    $("labRole").onchange=()=>renderLabScenario();
-    $("runScenario").onclick=renderLabScenario;
-    $("useScenario").onclick=()=>{
-      const sc=selectedScenario();C.name=sc.candidate;C.cv=sc.cv;C.words=sc.words;C.pick=$("labRole").value;C.step=1;C.consent=false;
-      show("candidate");drawPhone();toast("Scenario loaded into the candidate journey. Review before applying.");
-    };
+  }
+  if(!$("labScenario").dataset.initialized){
+    $("labScenario").value=LAB_SCENARIOS[0].id;
     $("labRole").value=LAB_SCENARIOS[0].role;
+    $("labScenario").addEventListener("change",()=>{
+      const sc=selectedScenario();
+      if(sc)$("labRole").value=sc.role;
+      $("labRunStatus").textContent="Scenario selection changed. Click Run scenario to evaluate the selected profile.";
+    });
+    $("labRole").addEventListener("change",()=>{
+      $("labRunStatus").textContent="Requisition changed. Click Run scenario to evaluate this candidate against the selected role.";
+    });
+    $("labScenario").dataset.initialized="true";
+  }
+  // Bind the actions independently of dropdown initialisation so a restored select
+  // value or a second render can never leave the Run button without a handler.
+  if(!$("runScenario").dataset.bound){
+    $("runScenario").addEventListener("click",runLabScenario);
+    $("runScenario").dataset.bound="true";
+  }
+  if(!$("useScenario").dataset.bound){
+    $("useScenario").addEventListener("click",()=>{
+      const sc=selectedScenario();
+      if(!sc){toast("Choose a candidate scenario first.");return;}
+      C.name=sc.candidate;C.cv=sc.cv;C.words=sc.words;C.pick=$("labRole").value;C.step=1;C.consent=false;
+      show("candidate");drawPhone();toast("Scenario loaded into the candidate journey. Review before applying.");
+    });
+    $("useScenario").dataset.bound="true";
   }
   renderLabScenario();
+}
+function runLabScenario(){
+  const button=$("runScenario");
+  const sc=selectedScenario();
+  const selectedRole=role($("labRole").value);
+  if(!sc||!selectedRole){toast("Choose a valid candidate and requisition.");return;}
+  button.disabled=true;
+  button.textContent="Evaluating…";
+  try{
+    renderLabScenario();
+    LAB_RUN_COUNT++;
+    LAB_LAST_SIGNATURE=sc.id+"::"+selectedRole.id;
+    const a=assess(sc.cv,selectedRole);
+    $("labRunStatus").textContent=`Run #${LAB_RUN_COUNT} complete · ${sc.name} · ${selectedRole.title} · ${a.score}% · ${BUCKET[a.bucket][0]}`;
+    $("labResult").dataset.runCount=String(LAB_RUN_COUNT);
+    $("labResult").dataset.scenario=sc.id;
+    $("labResult").dataset.role=selectedRole.id;
+    toast("Scenario evaluated successfully.");
+  }catch(error){
+    $("labRunStatus").textContent="The scenario could not be evaluated. Please change the selection and try again.";
+    toast("Simulation error: "+(error&&error.message?error.message:"unknown error"));
+  }finally{
+    button.disabled=false;
+    button.textContent="Run scenario";
+  }
 }
 function renderLabScenario(){
   const sc=selectedScenario(),r=role($("labRole").value||sc.role),a=assess(sc.cv,r);
