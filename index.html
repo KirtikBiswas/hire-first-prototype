@@ -452,6 +452,9 @@ body{
 .lab-note{font-size:11px;color:var(--muted);line-height:1.5;margin-top:10px}
 @media(max-width:900px){.sourcing-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.lab-controls{grid-template-columns:1fr 1fr}.lab-actions{grid-column:1/-1}.lab-result{grid-template-columns:1fr}}
 @media(max-width:640px){.analytics-grid,.sourcing-grid{grid-template-columns:1fr}.lifecycle{grid-template-columns:repeat(4,minmax(0,1fr))}.lab-controls{grid-template-columns:1fr}.lab-actions{grid-column:auto}.copilot-bar{flex-direction:column}}
+
+.said mark.neg,.cv mark.neg{background:var(--bad-soft);color:var(--bad);text-decoration:underline;text-decoration-style:dotted;text-underline-offset:2px}
+.crow .evidence-detail{grid-column:1/-1;font-size:11.5px;color:var(--muted);line-height:1.45;margin-top:-3px;overflow-wrap:anywhere}
 </style>
 </head>
 <body>
@@ -647,7 +650,7 @@ function scanSkills(text){
   }
   return {found,negative,conflicts};
 }
-function skillsIn(text){ return scanSkills(text).found; }
+function skillsIn(text){ const s=scanSkills(text);const out={...s.found};Object.keys(s.conflicts).forEach(k=>delete out[k]);return out; }
 function assess(text, role){
   const scan=scanSkills(text), found=scan.found;
   let got=0,total=0; const rows=[];
@@ -690,15 +693,25 @@ const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 // highlight every matched phrase in a text
 function highlight(text){
-  const marks=[];
-  for(const k in SK){ for(const pats of [SK[k]]){
-    const low=text.toLowerCase();
-    for(const p of pats.en){ const re=new RegExp("(^|[^a-z0-9])("+esc(p)+")(?=[^a-z0-9]|$)","gi"); let m; while((m=re.exec(low))){ marks.push([m.index+m[1].length,p.length]); } }
-    for(const p of pats.hi){ let i=low.indexOf(p.toLowerCase()); while(i>=0){ let e=i+p.length; while(e<text.length && !/[\s,.।!?;:()"“”]/.test(text[e])) e++; let st=i; while(st>0 && !/[\s,.।!?;:()"“”]/.test(text[st-1])) st--; marks.push([st,e-st]); i=low.indexOf(p.toLowerCase(),i+1);} }
-  }}
+  const marks=[],negativePattern=/\b(no|not|never|without|unable|didn't|don't|doesn't|do not|does not|haven't|hasn't|cannot|can't|failed to)\b|नहीं|नही|कभी नहीं|नहीं किया|नहीं की/i;
+  const isNegative=(index)=>{
+    const start=Math.max(text.lastIndexOf("\n",index-1),text.lastIndexOf(".",index-1),text.lastIndexOf("।",index-1),text.lastIndexOf(",",index-1))+1;
+    return negativePattern.test(text.slice(start,index));
+  };
+  for(const k in SK){
+    const pats=SK[k],low=text.toLowerCase();
+    for(const p of pats.en){
+      const re=new RegExp("(^|[^a-z0-9])("+esc(p)+")(?=[^a-z0-9]|$)","gi");let m;
+      while((m=re.exec(low))){const i=m.index+m[1].length;marks.push([i,p.length,isNegative(i)]);}
+    }
+    for(const p of pats.hi){
+      let i=low.indexOf(p.toLowerCase());
+      while(i>=0){let e=i+p.length;while(e<text.length&&!/[\s,.।!?;:()"“”]/.test(text[e]))e++;let st=i;while(st>0&&!/[\s,.।!?;:()"“”]/.test(text[st-1]))st--;marks.push([st,e-st,isNegative(st)]);i=low.indexOf(p.toLowerCase(),i+1);}
+    }
+  }
   marks.sort((a,b)=>a[0]-b[0]);
   let out="",pos=0;
-  for(const [i,len] of marks){ if(i<pos) continue; out+=h(text.slice(pos,i))+"<mark>"+h(text.slice(i,i+len))+"</mark>"; pos=i+len; }
+  for(const [i,len,neg] of marks){if(i<pos)continue;out+=h(text.slice(pos,i))+(neg?'<mark class="neg">':'<mark>')+h(text.slice(i,i+len))+"</mark>";pos=i+len;}
   return out+h(text.slice(pos));
 }
 function ring(score,big){
@@ -739,7 +752,7 @@ function drawPhone(){
       <div class="field"><label for="ccv">Your CV, in any language</label><textarea id="ccv">${h(C.cv)}</textarea></div>
       <div class="upload-row"><label class="upload-btn" for="cvFile">Upload text CV (.txt)</label><input id="cvFile" type="file" accept=".txt,text/plain" hidden><span id="cvFileName">No file selected</span></div>
       <button class="voice" id="voice" data-rec="false" type="button"><span class="mic" style="flex:none"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 10a2.5 2.5 0 0 0 2.5-2.5v-4a2.5 2.5 0 0 0-5 0v4A2.5 2.5 0 0 0 8 10z"/></svg></span><span class="wave">${Array.from({length:22},(_,i)=>`<i style="animation-delay:${(i%7)*.09}s"></i>`).join("")}</span><small id="vtxt">Dictate a voice note (browser support required)</small></button>
-      <p class="privacy-note">Speech input is handled by your browser's speech-recognition service when available. This demo does not upload or store audio.</p>
+      <p class="privacy-note">Speech recognition is provided by your browser/device and may use an external speech service under its privacy settings. Hire FIRST does not store audio or send it to a Hire FIRST backend.</p>
       <label class="consent-row"><input type="checkbox" id="poolConsent" ${C.consent?"checked":""}><span><b>Yes, keep my profile for future suitable opportunities.</b><small>Optional. You can withdraw consent later. Your application can proceed without opting in.</small></span></label>
       <div class="pnav"><button class="btn soft" id="back">Back</button><button class="btn" id="submit">Submit application</button></div>
       <p class="sub" style="font-size:11.5px;color:var(--muted);text-align:center">Your profile is saved, with your consent, for future roles.</p>`;
@@ -799,8 +812,8 @@ function submitApp(){
 }
 function drawTrack(){
   const me=people.find(p=>p.id==="asha"), r=role(me.role), a=assess(full(me),r), el=$("pbody");
-  const stages=["Applied","Shortlisted","Interview","Offer","Accepted","Preboarding","Joined"];
-  const rank={"Applied":0,"Clarification requested":0,"Shortlisted":1,"Interview scheduled":2,"Offer issued":3,"Offer accepted":4,"Preboarding":5,"Joined":6,"Rejected":-1};
+  const stages=["Applied","Shortlisted","Interview","Offer","Accepted","Preboarding","Docs done","Joined"];
+  const rank={"Applied":0,"Clarification requested":0,"Shortlisted":1,"Interview scheduled":2,"Offer issued":3,"Offer accepted":4,"Preboarding":5,"Preboarding complete":6,"Joined":7,"Rejected":-1};
   const active=rank[me.status]??0;
   const lifecycle=stages.map((s,i)=>{const done=active>i,current=active===i;return `<div class="life-step ${done?"done":current?"current":""}">${done?"✓ ": ""}${s}</div>`;}).join("");
   let body="", statusTitle="Application received", statusText="Your application is in the sample hiring pipeline.";
@@ -825,6 +838,10 @@ function drawTrack(){
     statusTitle="Preboarding in progress";
     statusText="Complete the sample checklist to demonstrate the final joining journey.";
     body=`<div class="qcard"><div class="bot">Preboarding checklist</div><label><input type="checkbox" id="docCheck"> Identity and education documents reviewed</label><label><input type="checkbox" id="policyCheck"> Policy and joining information acknowledged</label><label><input type="checkbox" id="buddyCheck"> Buddy / reporting contact received</label><button class="btn sm" id="completePreboarding">Complete sample checklist</button></div>`;
+  } else if(me.status==="Preboarding complete"){
+    statusTitle="Documents completed — awaiting joining confirmation";
+    statusText="Your sample preboarding checklist is complete. The recruiter confirms the joining milestone.";
+    body=`<div class="okcard"><div class="big">✓</div><b>Preboarding checklist complete</b><p>Your joining status will be confirmed by the recruiter.</p></div>`;
   } else if(me.status==="Joined"){
     statusTitle="Day 1 ready";
     statusText="The sample candidate journey has reached joining.";
@@ -864,7 +881,7 @@ function drawTrack(){
   const accept=$("acceptOffer"); if(accept) accept.onclick=()=>{setStatus(me,"Offer accepted","Candidate accepted the sample offer.");drawPhone();drawRecruiter();};
   const complete=$("completePreboarding"); if(complete) complete.onclick=()=>{
     if(!$("docCheck").checked||!$("policyCheck").checked||!$("buddyCheck").checked){toast("Complete all three sample checklist items first.");return;}
-    setStatus(me,"Joined","Sample preboarding checklist completed; Day 1 ready.");drawPhone();drawRecruiter();drawStats();
+    setStatus(me,"Preboarding complete","Candidate completed the sample preboarding checklist.");drawPhone();drawRecruiter();drawStats();
   };
   $("toggleConsent").onclick=()=>{me.consent=!me.consent;C.consent=me.consent;drawPhone();drawRecruiter();toast(me.consent?"Future matching enabled.":"Consent withdrawn. Profile removed from rediscovery.");};
 }
@@ -931,7 +948,7 @@ function recruiterActions(p,a){
   if(p.status==="Shortlisted") return `<button class="btn sm" data-act="Schedule interview">Schedule interview</button>`;
   if(p.status==="Interview scheduled") return `<button class="btn sm" data-act="Issue offer">Issue sample offer</button>`;
   if(p.status==="Offer accepted") return `<button class="btn sm" data-act="Start preboarding">Start preboarding</button>`;
-  if(p.status==="Preboarding") return `<button class="btn sm" data-act="Mark joined">Mark Day 1 ready</button>`;
+  if(p.status==="Preboarding complete") return `<button class="btn sm" data-act="Mark joined">Confirm joining</button>`;
   return `<span class="privacy-note">Next action is with the candidate or the completed journey.</span>`;
 }
 function applyRecruiterAction(p,action,a){
@@ -952,7 +969,7 @@ function applyRecruiterAction(p,action,a){
   } else if(action==="Start preboarding"){
     setStatus(p,"Preboarding","Candidate accepted the illustrative offer; preboarding opened.");
   } else if(action==="Mark joined"){
-    setStatus(p,"Joined","Sample candidate reached Day 1 readiness.");
+    setStatus(p,"Joined","Recruiter confirmed the sample joining milestone.");
   }
   R.log.push(`${p.name}: ${action.toLowerCase()}`);
 }
@@ -1144,9 +1161,9 @@ async function runDemo(manual){
     $("submit").click(); await wait(1200);
     cap(5,N,"64% match. A keyword filter would have rejected her. The engine asks one question instead."); await beat(3200);
     await typeInto($("ans"),SAMPLE_ANSWER,28); await wait(700); $("send").click(); await wait(1800);
-    cap(6,N,"Her answer shows banking experience. She moves to Strong match and is shortlisted."); await beat(3000);
+    cap(6,N,"Her answer adds banking evidence. She becomes a Strong match recommendation, ready for recruiter review."); await beat(3000);
     show("recruiter"); drawRecruiter(); if(manual) $("view-recruiter").scrollIntoView({behavior:reduce?"auto":"smooth",block:"start"}); else window.scrollTo({top:0,behavior:"smooth"});
-    cap(7,N,"The recruiter sees every skill with the line in her CV that proves it, and makes the call."); await beat(4200);
+    cap(7,N,"The recruiter sees each skill's evidence and makes the shortlist decision. The score never replaces human judgment."); await beat(4200);
     const det=$("detail"); det.scrollIntoView({behavior:reduce?"auto":"smooth",block:"start"}); await beat(3800);
   }catch(e){}
   stopDemo();
