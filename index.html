@@ -321,6 +321,17 @@ button:focus-visible,textarea:focus-visible,select:focus-visible,input:focus-vis
 .foot{font-size:12px;color:var(--faint);text-align:center}
 
 @media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
+
+/* Jury-round usability: presenter guidance, explicit decision ownership and mobile fit. */
+.present-help{display:inline-flex;align-items:center;gap:6px;padding:8px 11px;border:1px solid var(--line);border-radius:999px;background:var(--surface);color:var(--muted);font-size:11.5px;font-weight:600;line-height:1.35}
+.present-help[hidden],.caption .stop-hint[hidden]{display:none!important}
+.caption .stop-hint{display:flex;align-items:center;gap:5px;white-space:nowrap;font-size:11.5px;font-weight:700;opacity:.92}
+.decision-note{padding:11px 13px;border:1px solid var(--line);border-left:3px solid var(--gold);border-radius:10px;background:var(--gold-soft);color:var(--fg);font-size:12.5px;line-height:1.55}
+.decision-note b{color:var(--brand)}
+@media(max-width:640px){
+  .present-help{order:5;flex:1 0 100%;justify-content:center;text-align:center;border-radius:10px}
+  .caption.mini{left:16px;right:16px;max-width:none;justify-content:center}
+}
 </style>
 </head>
 <body>
@@ -329,11 +340,12 @@ button:focus-visible,textarea:focus-visible,select:focus-visible,input:focus-vis
   <div class="appbar-in">
     <div class="logo"><div class="mark">HF</div><div><b>Hire FIRST</b><span>Skills engine prototype</span></div></div>
     <div class="seg" role="tablist" aria-label="View">
-      <button id="tab-candidate" role="tab" aria-selected="true" data-view="candidate">Candidate</button>
-      <button id="tab-recruiter" role="tab" aria-selected="false" data-view="recruiter">Recruiter</button>
+      <button id="tab-candidate" role="tab" aria-selected="true" aria-controls="view-candidate" tabindex="0" data-view="candidate">Candidate</button>
+      <button id="tab-recruiter" role="tab" aria-selected="false" aria-controls="view-recruiter" tabindex="-1" data-view="recruiter">Recruiter</button>
     </div>
     <button class="demo-btn present" id="presentBtn" data-on="false" title="Each step waits for you. Press the right arrow, Space or your clicker to move on."><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M2 3h12v8H9.5l2 2.5h-1.9L8 11.6 6.4 13.5H4.5l2-2.5H2z"/></svg><span>Present</span></button>
     <button class="demo-btn" id="demoBtn" data-on="false"><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M4 2.5v11l9-5.5z"/></svg><span>Play demo</span></button>
+    <span class="present-help" id="presentHelp" hidden>Presenter controls: → / Space / Enter to advance · Esc to stop</span>
   </div>
 </header>
 
@@ -354,7 +366,7 @@ button:focus-visible,textarea:focus-visible,select:focus-visible,input:focus-vis
     </div>
   </section>
 
-  <section id="view-candidate" class="cand">
+  <section id="view-candidate" class="cand" role="tabpanel" aria-labelledby="tab-candidate" tabindex="-1">
     <div class="stage">
       <div class="device">
         <div class="screen" id="screen">
@@ -399,12 +411,13 @@ button:focus-visible,textarea:focus-visible,select:focus-visible,input:focus-vis
           <div><span class="pill p-uncertain">Uncertain</span>Under 50%, or a mandatory item not stated. One question, then a person reviews.</div>
           <div><span class="pill p-fail">Fails a mandatory criterion</span>Rejected with the reason and a better-fit role.</div>
         </div>
+        <div class="decision-note"><b>Human-in-control:</b> A match score is a screening aid, not a final hiring decision. Recruiters review the evidence and remain responsible for selection.</div>
         <div class="sub">This prototype uses a phrase dictionary in Hindi, Hinglish and English. In production it would be a language model trained on the bank's own role competencies; the triage rules stay the same.</div>
       </div>
     </div>
   </section>
 
-  <section id="view-recruiter" hidden style="display:flex;flex-direction:column;gap:18px">
+  <section id="view-recruiter" hidden role="tabpanel" aria-labelledby="tab-recruiter" tabindex="-1" style="display:flex;flex-direction:column;gap:18px">
     <div class="rtop">
       <div class="req">
         <label for="roleSel">Requisition</label>
@@ -425,7 +438,7 @@ button:focus-visible,textarea:focus-visible,select:focus-visible,input:focus-vis
 </main>
 
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
-<div class="caption" id="caption" hidden><span class="n" id="capN">1 / 7</span><p id="capT"></p><span class="key" id="capKey" hidden><kbd>→</kbd> next</span><div class="bar2"><i id="capBar" style="width:0%"></i></div></div>
+<div class="caption" id="caption" role="status" aria-live="polite" aria-atomic="true" hidden><span class="n" id="capN">1 / 7</span><p id="capT"></p><span class="key" id="capKey" hidden><kbd>→</kbd> next</span><span class="stop-hint" id="capStop" hidden><kbd>Esc</kbd> stop</span><div class="bar2"><i id="capBar" style="width:0%"></i></div></div>
 
 <script>
 // ---------- skills dictionary ----------
@@ -474,7 +487,7 @@ function assess(text, role){
   let edu = "na";
   if(role.edu){ edu = find(text,EDU_NO) ? "fail" : find(text,EDU_OK) ? "met" : "ask"; }
   const kwHit = role.kw.filter(k=>text.toLowerCase().includes(k)).length;
-  const bucket = edu==="fail" ? "fail" : (score>=80 && edu!=="ask") ? "strong" : score>=50 ? "potential" : "uncertain";
+  const bucket = edu==="fail" ? "fail" : edu==="ask" ? "uncertain" : score>=80 ? "strong" : score>=50 ? "potential" : "uncertain";
   const gaps = rows.filter(r=>!r.ev).sort((a,b)=>b.w-a.w);
   return {score,rows,edu,bucket,gaps,kwHit,kwAll:role.kw.length};
 }
@@ -677,10 +690,19 @@ function countTo(el,n){ const s=+el.textContent||0; if(reduce||s===n){el.textCon
 function show(v){
   if(v!=="recruiter") v="candidate";
   $("view-candidate").hidden=v!=="candidate"; $("view-recruiter").hidden=v!=="recruiter";
-  document.querySelectorAll(".seg button").forEach(b=>b.setAttribute("aria-selected",String(b.dataset.view===v)));
+  document.querySelectorAll(".seg button").forEach(b=>{ const selected=b.dataset.view===v; b.setAttribute("aria-selected",String(selected)); b.tabIndex=selected?0:-1; });
   if(location.hash.slice(1)!==v){ try{history.replaceState(null,"","#"+v);}catch(e){} }
 }
-document.querySelectorAll(".seg button").forEach(b=>b.onclick=()=>show(b.dataset.view));
+document.querySelectorAll(".seg button").forEach(b=>{
+  b.onclick=()=>show(b.dataset.view);
+  b.addEventListener("keydown",e=>{
+    if(!["ArrowLeft","ArrowRight","Home","End"].includes(e.key)) return;
+    const tabs=[...document.querySelectorAll(".seg button")];
+    let i=tabs.indexOf(b);
+    i=e.key==="Home"?0:e.key==="End"?tabs.length-1:e.key==="ArrowRight"?(i+1)%tabs.length:(i-1+tabs.length)%tabs.length;
+    e.preventDefault(); tabs[i].focus(); show(tabs[i].dataset.view);
+  });
+});
 window.addEventListener("hashchange",()=>show(location.hash.slice(1)));
 $("pbody").addEventListener("click",e=>{
   const w=e.target.closest("[data-words]"); if(w){ C.words=w.dataset.words; $("words").value=C.words; updDiscover(); return; }
@@ -705,7 +727,7 @@ function resetAll(){
   Object.assign(C,{step:1,words:"",pick:"acq",cv:ASHA_CV,name:"Asha Kumari"});
 }
 async function runDemo(manual){
-  D.on=true; D.tok++; D.manual=!!manual; const btn=$(manual?"presentBtn":"demoBtn"); btn.dataset.on="true"; btn.querySelector("span").textContent="Stop"; $(manual?"demoBtn":"presentBtn").hidden=true;
+  D.on=true; D.tok++; D.manual=!!manual; $("presentHelp").hidden=!manual; $("capStop").hidden=!manual; const btn=$(manual?"presentBtn":"demoBtn"); btn.dataset.on="true"; btn.querySelector("span").textContent="Stop"; $(manual?"demoBtn":"presentBtn").hidden=true;
   if(document.activeElement) document.activeElement.blur();
   $("caption").classList.toggle("mini",!!manual);
   const N=7;
@@ -728,7 +750,7 @@ async function runDemo(manual){
   }catch(e){}
   stopDemo();
 }
-function stopDemo(){ D.on=false; D.tok++; D.next=null; $("caption").hidden=true; $("capKey").hidden=true;
+function stopDemo(){ D.on=false; D.tok++; D.next=null; $("caption").hidden=true; $("capKey").hidden=true; $("capStop").hidden=true; $("presentHelp").hidden=true;
   const b=$("demoBtn"), pb=$("presentBtn"); b.hidden=false; pb.hidden=false;
   b.dataset.on="false"; b.querySelector("span").textContent="Play demo"; pb.dataset.on="false"; pb.querySelector("span").textContent="Present"; }
 $("demoBtn").onclick=()=>D.on?stopDemo():runDemo(false);
