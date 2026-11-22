@@ -32,15 +32,16 @@ An interactive student concept for IDFC FIRST Bank FAME 6.0, Problem Statement 2
 - Load a selected scenario into the candidate journey.
 
 ### Guided presentation
-- **Present** runs the seven-step Asha story one step at a time. Press the right arrow, Space, Enter or a clicker to advance; Esc stops.
-- **Play demo** runs the story automatically with captions.
+- **Present** runs the nine-step Asha story one step at a time, from her Hindi description to the recruiter's shortlist and her updated tracker. Press the right arrow, Space, Enter or a clicker to advance; Esc stops.
+- **Play demo** runs the same story automatically with captions in about a minute.
+- During either mode the page hides the intro banner, scrolls to each step and highlights what to look at, so it works on a laptop screen shared over a video call.
 
 ## How the screening logic works
 
 A small phrase dictionary in Hindi, Hinglish and English maps candidate statements to nine sample competencies. Each role has weighted competencies. The score is the share of weighted competencies with unambiguous positive evidence.
 
 - Strong match: 80% or more, subject to mandatory criteria.
-- Potential match: 50–79%.
+- Potential match: 50-79%.
 - Uncertain: below 50%, mandatory information not stated, or contradictory competency evidence.
 - Fails mandatory criterion: a sample mandatory criterion is explicitly not met.
 

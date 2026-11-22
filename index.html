@@ -1,6 +1,7 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
+<meta name="color-scheme" content="light">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="description" content="Hire FIRST: an interactive, skills-based hiring prototype with candidate and recruiter journeys, consent-aware rediscovery and a hiring simulation lab.">
@@ -375,7 +376,7 @@ body{
   background:var(--gold-2);
   color:var(--brand-deep);
 }
-@media (prefers-color-scheme:dark){
+@media (prefers-color-scheme:dark) and (max-width:0px){
   .appbar{box-shadow:0 8px 28px rgba(0,0,0,.22)}
   .card,.stat,.kpi,.col,.inputcard,.rolecard,.device{
     box-shadow:0 1px 0 rgba(255,255,255,.045) inset,var(--shadow);
@@ -516,13 +517,16 @@ body{
 .apphead{background:linear-gradient(150deg,#7A1728,#4A111D);color:#FFFFFF}
 .status{background:#4B1B26;color:#F8EFF0}
 .caption .n{background:#F4DCA7;color:#3A2A15}
-@media(prefers-color-scheme:dark){
+@media (prefers-color-scheme:dark) and (max-width:0px){
   :root:not([data-theme="light"]){color-scheme:dark}
   .mark{background:linear-gradient(140deg,#8F1D2C,#C04A58);color:#FFFFFF}
   .demo-btn.present{background:var(--surface);color:var(--brand-2);border-color:var(--line)}
   .apphead{background:linear-gradient(150deg,#4B111D,#2B151B)}
   .device{background:#100B0D;box-shadow:var(--shadow-lg),inset 0 0 0 2px #68434B}
 }
+.demo-on .hero{display:none}
+.demo-on .caption:not(.mini){left:auto;right:max(20px,env(safe-area-inset-right,0px))}
+.demo-focus{outline:3px solid #E6AE2C;outline-offset:4px;border-radius:14px;transition:outline-color .3s}
 </style>
 </head>
 <body>
@@ -909,7 +913,7 @@ function drawTrack(){
     statusText="Complete the sample checklist to demonstrate the final joining journey.";
     body=`<div class="qcard"><div class="bot">Preboarding checklist</div><label><input type="checkbox" id="docCheck"> Identity and education documents reviewed</label><label><input type="checkbox" id="policyCheck"> Policy and joining information acknowledged</label><label><input type="checkbox" id="buddyCheck"> Buddy / reporting contact received</label><button class="btn sm" id="completePreboarding">Complete sample checklist</button></div>`;
   } else if(me.status==="Preboarding complete"){
-    statusTitle="Documents completed — awaiting joining confirmation";
+    statusTitle="Documents completed: awaiting joining confirmation";
     statusText="Your sample preboarding checklist is complete. The recruiter confirms the joining milestone.";
     body=`<div class="okcard"><div class="big">✓</div><b>Preboarding checklist complete</b><p>Your joining status will be confirmed by the recruiter.</p></div>`;
   } else if(me.status==="Joined"){
@@ -929,12 +933,12 @@ function drawTrack(){
     statusText="The sample profile appears to miss a mandatory requirement. A recruiter must validate the information and communicate the decision.";
     body=`<div class="qcard"><div class="bot">Eligibility check</div><p>${h(statusText)}</p><span>Any confirmed decision should include the specific criterion and a review path.</span></div>`;
   } else if(a.bucket==="strong"){
-    statusTitle="Strong match — recruiter review";
+    statusTitle="Strong match: recruiter review";
     statusText="Your evidence meets the sample role threshold. A recruiter still makes the shortlist decision.";
     body=`<div class="okcard"><div class="big">✓</div><b>Ready for recruiter review</b><p>Strong match is a recommendation, not an automatic shortlist or hiring decision.</p></div>`;
   } else {
     const g=a.gaps[0], q=a.edu==="ask"?"What is the highest class or degree you have completed?":(g?SK[g.k].q:"Please clarify one relevant example.");
-    statusTitle=a.bucket==="potential"?"Potential match — additional screening":"More information needed";
+    statusTitle=a.bucket==="potential"?"Potential match: additional screening":"More information needed";
     statusText=a.bucket==="potential"?"A short screening conversation can explore the skills already identified.":"The prototype needs more evidence before a recruiter can review the profile.";
     body=`<div class="qcard"><div class="bot">${a.bucket==="potential"?"Short screening prompt":"One quick question before a decision"}</div><p>${h(q)}</p><textarea id="ans" placeholder="Type your answer in your own words"></textarea><div class="pnav"><button class="btn sm" id="send">Send answer</button></div></div>`;
   }
@@ -1073,7 +1077,7 @@ function runCopilot(query){
     items=matches.map(x=>({name:x.p.name,detail:`${x.a.score}% evidence score · ${x.p.source}`}));
   } else if(q.includes("sourc")){
     title="Suggested sourcing plays for "+r.title;
-    items=(SOURCING[r.id]||[]).map(x=>({name:x[0],detail:x[1]}));
+    const sel=ROLE_ARCHETYPE[r.id]; items=ARCHETYPE_PLAYBOOK.filter(x=>x[0]===sel).concat(ARCHETYPE_PLAYBOOK.filter(x=>x[0]!==sel&&(x[0]==="Passive talent"))).map(x=>({name:x[0]+(x[0]===sel?" (recommended)":""),detail:x[1]+" "+x[2]}));
   } else {
     title="Current requisition summary";
     const mine=people.filter(p=>p.role===R.role).map(p=>({p,a:assess(full(p),r)}));
@@ -1107,13 +1111,13 @@ function drawRecruiter(){
       <div class="who"><span class="avatar" style="background:${p.color}">${initials(p.name)}</span><div><h2>${h(p.name)}</h2><span style="font-size:12.5px;color:var(--muted)">Applied for ${r.title}</span></div></div>
       <div class="plabel" style="margin:0">CV, with evidence highlighted</div><div class="cv">${highlight(full(p))}</div>
       <div class="privacy-note">Source: <b>${h(p.source||"Unspecified")}</b> · Archetype: <b>${h(p.archetype||"Not tagged")}</b></div>
-      <div class="consent-manage"><div><b style="font-size:12px">Talent-pool consent</b><small>${p.consent?"Opted in to future matching":"Not opted in — excluded from rediscovery"}</small></div><span class="pill ${p.consent?"p-strong":"p-uncertain"}">${p.consent?"Opt-in":"No opt-in"}</span></div>
+      <div class="consent-manage"><div><b style="font-size:12px">Talent-pool consent</b><small>${p.consent?"Opted in to future matching":"Not opted in: excluded from rediscovery"}</small></div><span class="pill ${p.consent?"p-strong":"p-uncertain"}">${p.consent?"Opt-in":"No opt-in"}</span></div>
       </div>
       <div style="display:flex;flex-direction:column;gap:14px;min-width:0">
         <div class="vs"><div class="old"><span class="x">${a.kwHit===0?"✕":"✓"}</span><div><small>Exact title-keyword filter</small><b>${a.kwHit} of ${a.kwAll} phrases</b><span class="d">${a.kwHit===0?"No exact role-title phrase found":"One or more exact phrases found"}</span></div></div>
           <div class="new">${ring(a.score)}<div><small>Hire FIRST evidence score</small><b>${BUCKET[a.bucket][0]}</b><span class="d">${BUCKET[a.bucket][1]}</span></div></div></div>
         <div class="ev">${a.rows.map(x=>{const state=x.conflict?"Conflicting evidence":x.negative?"Negative statement":x.ev?"Evidence found":"No evidence yet";const quote=x.conflict?`Positive: ${x.conflict.positive} / Negative: ${x.conflict.negative}`:x.ev||x.negative||("Engine question: "+SK[x.k].q);return `<div class="evrow"><div class="k"><b>${SK[x.k].label}</b><span class="wt">Weight ${x.w} of ${Object.values(r.need).reduce((s,v)=>s+v,0)} · ${state}</span></div><div class="q ${x.ev&&!x.conflict?"y":"a"}">${h(quote)}</div></div>`;}).join("")}
-          ${r.edu?`<div class="evrow"><div class="k"><b>Class 12 or above</b><span class="wt">Mandatory</span></div><div class="q ${a.edu==="met"?"y":"a"}">${a.edu==="ask"?"Not stated — ask before deciding.":a.edu==="fail"?"Below-threshold qualification phrase found.":"Qualification phrase found; verify documents before offer."}</div></div>`:""}</div>
+          ${r.edu?`<div class="evrow"><div class="k"><b>Class 12 or above</b><span class="wt">Mandatory</span></div><div class="q ${a.edu==="met"?"y":"a"}">${a.edu==="ask"?"Not stated: ask before deciding.":a.edu==="fail"?"Below-threshold qualification phrase found.":"Qualification phrase found; verify documents before offer."}</div></div>`:""}</div>
         <div class="acts">${recruiterActions(p,a)}</div>
         ${R.log.length?`<ul class="log">${R.log.slice(-3).reverse().map(l=>`<li>${h(l)}</li>`).join("")}</ul>`:""}
       </div></div>`;
@@ -1134,12 +1138,12 @@ function countTo(el,n){ const s=+el.textContent||0; if(reduce||s===n){el.textCon
 
 
 const LAB_SCENARIOS=[
-  {id:"asha",name:"Asha — transferable insurance sales",candidate:"Asha Kumari",role:"acq",cv:ASHA_CV,words:START_WORDS,expected:"Potential",why:"Transferable acquisition, target and relationship evidence is visible. Banking-product and local-market evidence still need clarification."},
-  {id:"ravi",name:"Ravi — FMCG distributor",candidate:"Ravi Patil",role:"acq",cv:people.find(p=>p.id==="ravi").cv,words:"I sold FMCG products to 60 retail shops, managed monthly targets and helped shop owners with current accounts. B.Com graduate.",expected:"Strong / verify",why:"The profile demonstrates transferable distribution, outlet coverage and target ownership. Documentary checks and a recruiter decision remain necessary."},
-  {id:"negation",name:"Contradiction — target achievement",candidate:"Test Candidate",role:"acq",cv:"Insurance salesperson, 3 years. I sell policies door to door and meet my monthly sales targets. I have never met my targets. 12th pass.",words:"I sell insurance door to door, but I have never met my monthly targets.",expected:"Uncertain",why:"Positive and negative statements appear for the same competency. The prototype withholds credit for the conflicted signal and flags human review."},
+  {id:"asha",name:"Asha: transferable insurance sales",candidate:"Asha Kumari",role:"acq",cv:ASHA_CV,words:START_WORDS,expected:"Potential",why:"Transferable acquisition, target and relationship evidence is visible. Banking-product and local-market evidence still need clarification."},
+  {id:"ravi",name:"Ravi: FMCG distributor",candidate:"Ravi Patil",role:"acq",cv:people.find(p=>p.id==="ravi").cv,words:"I sold FMCG products to 60 retail shops, managed monthly targets and helped shop owners with current accounts. B.Com graduate.",expected:"Strong / verify",why:"The profile demonstrates transferable distribution, outlet coverage and target ownership. Documentary checks and a recruiter decision remain necessary."},
+  {id:"negation",name:"Contradiction: target achievement",candidate:"Test Candidate",role:"acq",cv:"Insurance salesperson, 3 years. I sell policies door to door and meet my monthly sales targets. I have never met my targets. 12th pass.",words:"I sell insurance door to door, but I have never met my monthly targets.",expected:"Uncertain",why:"Positive and negative statements appear for the same competency. The prototype withholds credit for the conflicted signal and flags human review."},
   {id:"missing",name:"Missing mandatory education evidence",candidate:"Test Candidate",role:"acq",cv:"Field sales representative. Sold policies door to door, achieved targets, maintained repeat customer relationships and explained KYC.",words:"I sell policies door to door and achieve my targets.",expected:"Uncertain",why:"The skills score may be high, but the mandatory qualification is not stated. The system asks rather than assuming eligibility."},
   {id:"fail",name:"Confirmed mandatory qualification gap",candidate:"Test Candidate",role:"acq",cv:"Insurance salesperson, 3 years. Sold policies door to door, achieved targets, built repeat customer relationships. 10th pass.",words:"I have sales experience and passed Class 10.",expected:"Fails mandatory criterion",why:"A below-threshold qualification phrase is explicitly present. A real process must verify the criterion and share the specific reason."},
-  {id:"rural",name:"Meena — rural community experience",candidate:"Meena Devi",role:"arm",cv:"Self-help group member. Gaon mein mahilaon ka bachat khata khulwaya. Group ka hisab rakhti hoon. 10th pass.",words:"Gaon mein mahilaon ka bachat khata khulwaya aur group ka hisab rakha.",expected:"Uncertain / criterion review",why:"Community and local context can be relevant, but the sample profile does not meet the stated Class 12 mandatory requirement for this role."}
+  {id:"rural",name:"Meena: rural community experience",candidate:"Meena Devi",role:"arm",cv:"Self-help group member. Gaon mein mahilaon ka bachat khata khulwaya. Group ka hisab rakhti hoon. 10th pass.",words:"Gaon mein mahilaon ka bachat khata khulwaya aur group ka hisab rakha.",expected:"Uncertain / criterion review",why:"Community and local context can be relevant, but the sample profile does not meet the stated Class 12 mandatory requirement for this role."}
 ];
 function selectedScenario(){return LAB_SCENARIOS.find(x=>x.id===$("labScenario").value)||LAB_SCENARIOS[0];}
 let LAB_RUN_COUNT=0;
@@ -1246,8 +1250,8 @@ $("pbody").addEventListener("click",e=>{
 });
 
 // ---------- guided demo ----------
-const D={on:false,tok:0,manual:false,next:null};
-function beat(ms){ if(!D.manual) return wait(ms); $("capKey").hidden=false; const t=D.tok; return new Promise((res,rej)=>{ D.next=()=>{ D.next=null; $("capKey").hidden=true; t===D.tok&&D.on?res():rej("stop"); }; }); }
+const D={on:false,tok:0,manual:false,next:null,read:0};
+function beat(ms){ if(!D.manual){ const r=D.read||0; D.read=0; return wait(Math.max(ms,r)); } $("capKey").hidden=false; const t=D.tok; return new Promise((res,rej)=>{ D.next=()=>{ D.next=null; $("capKey").hidden=true; t===D.tok&&D.on?res():rej("stop"); }; }); }
 document.addEventListener("keydown",e=>{
   if(!D.on) return;
   if(e.key==="Escape"){ stopDemo(); return; }
@@ -1255,7 +1259,7 @@ document.addEventListener("keydown",e=>{
 });
 document.addEventListener("click",e=>{ if(D.on&&D.manual&&D.next&&e.target.closest("#caption")) D.next(); });
 const wait=ms=>new Promise((res,rej)=>{const t=D.tok; setTimeout(()=>D.on&&t===D.tok?res():rej("stop"), reduce?Math.min(ms,300):ms);});
-function cap(i,n,t){ $("caption").hidden=false; $("capN").textContent=i+" / "+n; $("capT").textContent=t; $("capBar").style.width=(i/n*100)+"%"; }
+function cap(i,n,t){ $("caption").hidden=false; $("capN").textContent=i+" / "+n; $("capT").textContent=t; $("capBar").style.width=(i/n*100)+"%"; D.read=800+t.split(/\s+/).length*330; }
 async function typeInto(el,text,speed){ el.value=""; el.focus({preventScroll:true}); for(const ch of Array.from(text)){ await wait(speed); el.value+=ch; el.dispatchEvent(new Event("input",{bubbles:true})); } el.blur(); }
 function resetAll(){
   const me=people.find(p=>p.id==="asha");Object.assign(me,{name:"Asha Kumari",cv:ASHA_CV,extra:"",role:"acq",decision:null,status:"Applied",consent:false,source:"Direct application",question:null,questionSkill:null,feedback:null,history:[],live:false});
@@ -1263,31 +1267,39 @@ function resetAll(){
   R.log=[];R.role="acq";R.sel="asha";
   Object.assign(C,{step:1,words:"",pick:"acq",cv:ASHA_CV,name:"Asha Kumari",consent:false});
 }
+function focusEl(el,extra){ if(!el) return; document.querySelectorAll(".demo-focus").forEach(x=>x.classList.remove("demo-focus")); const hb=document.querySelector(".appbar").offsetHeight; const y=el.getBoundingClientRect().top+window.scrollY-hb-14-(extra||0); window.scrollTo({top:Math.max(0,y),behavior:reduce?"auto":"smooth"}); }
+function mark(el){ document.querySelectorAll(".demo-focus").forEach(x=>x.classList.remove("demo-focus")); if(el) el.classList.add("demo-focus"); }
 async function runDemo(manual){
   D.on=true; D.tok++; D.manual=!!manual; $("presentHelp").hidden=!manual; $("capStop").hidden=!manual; const btn=$(manual?"presentBtn":"demoBtn"); btn.dataset.on="true"; btn.querySelector("span").textContent="Stop"; $(manual?"demoBtn":"presentBtn").hidden=true;
   if(document.activeElement) document.activeElement.blur();
+  document.body.classList.add("demo-on");
   $("caption").classList.toggle("mini",!!manual);
-  const N=7;
+  const N=9;
   try{
     resetAll(); show("candidate"); drawPhone(); drawRecruiter();
-    if(manual) $("view-candidate").scrollIntoView({behavior:reduce?"auto":"smooth",block:"start"}); else window.scrollTo({top:0,behavior:"smooth"});
+    focusEl($("view-candidate"));
     cap(1,N,"Meet Asha. She sells insurance door to door and writes in Hindi."); await beat(2200);
     cap(2,N,"She describes her work in her own words. The engine picks out her skills as she types.");
     await typeInto($("words"),START_WORDS,55); await beat(1600);
-    cap(3,N,"Roles re-rank by fit. Her best match is a frontline sales role she would never find by job title."); await beat(2600);
+    cap(3,N,"Roles re-rank by fit. Her best match is a frontline sales role she would never find by job title."); mark($("pbody").querySelector('[data-apply="acq"]')?.closest(".rolecard")); await beat(2600); mark(null);
     $("pbody").querySelector('[data-apply="acq"]').click(); await wait(900);
     cap(4,N,"She applies in one step, with her Hindi CV. Nothing to retype."); await beat(2400);
     $("submit").click(); await wait(1200);
-    cap(5,N,"64% match. A keyword filter would have rejected her. The engine asks one question instead."); await beat(3200);
+    cap(5,N,"64% match. A keyword filter would have rejected her. The engine asks one question instead."); mark($("meter")); await beat(3200);
     await typeInto($("ans"),SAMPLE_ANSWER,28); await wait(700); $("send").click(); await wait(1800);
-    cap(6,N,"Her answer adds banking evidence. She becomes a Strong match recommendation, ready for recruiter review."); await beat(3000);
-    show("recruiter"); drawRecruiter(); if(manual) $("view-recruiter").scrollIntoView({behavior:reduce?"auto":"smooth",block:"start"}); else window.scrollTo({top:0,behavior:"smooth"});
-    cap(7,N,"The recruiter sees each skill's evidence and makes the shortlist decision. The score never replaces human judgment."); await beat(4200);
-    const det=$("detail"); det.scrollIntoView({behavior:reduce?"auto":"smooth",block:"start"}); await beat(3800);
+    cap(6,N,"Her answer adds banking evidence. She becomes a Strong match recommendation, ready for recruiter review."); mark($("meter")); await beat(3000); mark(null);
+    show("recruiter"); R.sel="asha"; R.flash="asha"; drawRecruiter(); await wait(60);
+    const card=$("board").querySelector('[data-p="asha"]'); focusEl($("board")); mark(card);
+    cap(7,N,"On the recruiter side, Asha arrives as a Strong match, even though she has zero job-title keyword hits."); await beat(3600);
+    focusEl($("detail")); mark(null);
+    cap(8,N,"The recruiter sees the evidence for each skill and makes the call. The score never replaces human judgment."); await beat(4200);
+    const sl=$("detail").querySelector('[data-act="Shortlisted"]'); if(sl){ mark(sl); await wait(900); sl.click(); await wait(1200); }
+    show("candidate"); drawPhone(); focusEl($("view-candidate")); mark($("screen"));
+    cap(9,N,"One click, and Asha's phone shows she is shortlisted, with interview prep. No silence."); await beat(4200); mark(null);
   }catch(e){}
   stopDemo();
 }
-function stopDemo(){ D.on=false; D.tok++; D.next=null; $("caption").hidden=true; $("capKey").hidden=true; $("capStop").hidden=true; $("presentHelp").hidden=true;
+function stopDemo(){ D.on=false; document.body.classList.remove("demo-on"); document.querySelectorAll(".demo-focus").forEach(x=>x.classList.remove("demo-focus")); D.tok++; D.next=null; $("caption").hidden=true; $("capKey").hidden=true; $("capStop").hidden=true; $("presentHelp").hidden=true;
   const b=$("demoBtn"), pb=$("presentBtn"); b.hidden=false; pb.hidden=false;
   b.dataset.on="false"; b.querySelector("span").textContent="Play demo"; pb.dataset.on="false"; pb.querySelector("span").textContent="Present"; }
 $("demoBtn").onclick=()=>D.on?stopDemo():runDemo(false);
